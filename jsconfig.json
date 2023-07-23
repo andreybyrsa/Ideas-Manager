@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@Assets/*": ["src/assets/*"],
+      "@Components/*": ["src/components/*"],
+      "@Layouts/*": ["src/layouts/*"],
+      "@Pages/*": ["src/pages/*"],
+      "@Store/*": ["src/store/*"],
+      "@Utils/*": ["src/utils/*"]
+    },
+    "target": "ES6",
+    "module": "CommonJS",
+    "jsx": "preserve",
+    "allowSyntheticDefaultImports": true
+  }
+}
