@@ -6,7 +6,10 @@
       "@Components/*": ["src/components/*"],
       "@Layouts/*": ["src/layouts/*"],
       "@Pages/*": ["src/pages/*"],
+      "@Hooks/*": ["src/hooks/*"],
       "@Store/*": ["src/store/*"],
+      "@Services/*": ["src/services/*"],
+      "@Middlewares/*": ["src/middlewares/*"],
       "@Utils/*": ["src/utils/*"]
     },
     "target": "ES6",
