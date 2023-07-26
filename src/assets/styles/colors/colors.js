@@ -5,7 +5,7 @@ const Colors = {
   'success-color': '#25c519',
   'danger-color': '#FF0404',
 
-  'default-backgroud-color': '#efefef',
+  'default-background-color': '#efefef',
 }
 
 export default Colors

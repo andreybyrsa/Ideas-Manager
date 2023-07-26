@@ -16,13 +16,13 @@ function AuthMiddleware() {
     if (!currentUser && localStorageUser) {
       dispatch(setGlobalUser(localStorageUser))
     }
+
+    dispatch(removeMessages())
   }, [currentUser, localStorageUser, dispatch])
 
   if (!currentUser && !localStorageUser) {
     return <Navigate to="/auth" />
   }
-
-  dispatch(removeMessages())
 
   return <Outlet />
 }
