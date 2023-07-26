@@ -1,22 +1,33 @@
+import { NavLink, useLoaderData } from 'react-router-dom'
+
 import Colors from '@Assets/styles/colors/colors'
 
 import { Typography, TypographyVariants } from '@Components/Typography'
 
+import PageLayout from '@Layouts/PageLayout'
+
 import './IndexPage.scss'
 
 function IndexPage() {
+  const { data } = useLoaderData()
+
   return (
-    <div className="index-page">
-      <Typography className="index-page__typography">
-        Это проект на React js
-      </Typography>
-      <Typography
-        variant={TypographyVariants['heading-1']}
-        color={Colors['primary-color']}
-      >
-        Настроенный!
-      </Typography>
-    </div>
+    <PageLayout className="index-page">
+      <NavLink to="/profile">
+        <Typography color={Colors['primary-color']}>
+          Перейти на профиль
+        </Typography>
+      </NavLink>
+
+      <div className="index-page__content">
+        <Typography
+          variant={TypographyVariants['heading-1']}
+          color={Colors['primary-color']}
+        >
+          {data}
+        </Typography>
+      </div>
+    </PageLayout>
   )
 }
 
