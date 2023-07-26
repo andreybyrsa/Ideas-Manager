@@ -13,6 +13,8 @@ module.exports = {
     'eslint:recommended',
     'plugin:react/recommended',
     'plugin:import/recommended',
+    'plugin:import/errors',
+    'plugin:import/warnings',
     'plugin:react/jsx-runtime',
     'prettier',
   ],
@@ -20,7 +22,11 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  plugins: ['react', 'import', 'eslint-plugin-import'],
+  plugins: [
+    'eslint-plugin-react',
+    'eslint-plugin-import',
+    'eslint-plugin-prettier',
+  ],
   settings: {
     'import/resolver': {
       alias: {
@@ -29,7 +35,10 @@ module.exports = {
           ['@Components', resolvePath('src/components/')],
           ['@Layouts', resolvePath('src/layouts/')],
           ['@Pages', resolvePath('src/pages/')],
+          ['@Hooks', resolvePath('src/hooks/')],
           ['@Store', resolvePath('src/store/')],
+          ['@Services', resolvePath('src/services')],
+          ['@Middlewares', resolvePath('src/middlewares')],
           ['@Utils', resolvePath('src/utils/')],
         ],
         extensions: ['.js', '.jsx', '.json'],
@@ -38,6 +47,10 @@ module.exports = {
   },
   rules: {
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
+
     'react/prop-types': 'off',
+    'prefer-arrow-callback': 'off',
+    'import/no-extraneous-dependencies': 'off',
+    'no-param-reassign': ['error', { props: false }],
   },
 }
