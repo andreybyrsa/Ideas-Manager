@@ -1,0 +1,11 @@
+.profile-page {
+  width: 100vw;
+  height: 100vh;
+  background-color: $lighted-color;
+
+  @include flexible(center, center);
+
+  &__content {
+    @include flexible(center, space-between, column, $gap: 12px);
+  }
+}
