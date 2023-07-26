@@ -28,9 +28,9 @@ function ProfilePage() {
   return (
     <PageLayout className="profile-page">
       <div>
-        {currentUser.role === 'admin' && <CreateUserForm isLogin={false} />}
+        {currentUser?.role === 'admin' && <CreateUserForm isLogin={false} />}
         <pre>{JSON.stringify(currentUser, null, 4)}</pre>
-        <Button onClick={handleLogout}>Выйти из акканута</Button>
+        <Button onClick={handleLogout}>Выйти из аккаунта</Button>
         {header}
       </div>
     </PageLayout>
