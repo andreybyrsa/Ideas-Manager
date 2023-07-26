@@ -1,0 +1,13 @@
+.button {
+  width: 100%;
+  height: 52px;
+  background-color: $white-color;
+  border-radius: 12px;
+  box-shadow: 1px 1px 5px $lighted-color;
+
+  transition: background-color $default-transition-settings;
+
+  &:active {
+    background-color: $lighted-color;
+  }
+}
