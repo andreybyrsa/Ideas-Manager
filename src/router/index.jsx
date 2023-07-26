@@ -7,7 +7,7 @@ import ErrorPage from '@Pages/ErrorPage'
 
 import AuthMiddleware from '@Middlewares/AuthMiddleware'
 
-import loadIdeas from '@Utils/loadIdeas'
+import ideasServise from '@Services/IdeasServise'
 
 const router = createBrowserRouter([
   {
@@ -17,7 +17,7 @@ const router = createBrowserRouter([
         path: '/',
         element: <IndexPage />,
         errorElement: <ErrorPage />,
-        loader: loadIdeas,
+        loader: ideasServise,
       },
       {
         path: '/profile',

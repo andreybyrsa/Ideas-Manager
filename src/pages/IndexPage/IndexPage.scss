@@ -13,4 +13,14 @@
   &__typography {
     color: #124313;
   }
+
+  &__ideas {
+    padding: 20px;
+    background-color: $white-color;
+    border-radius: 12px;
+
+    width: 100%;
+    max-width: 500px;
+    @include flexible(flex-start, flex-start, column, $gap: 12px);
+  }
 }
