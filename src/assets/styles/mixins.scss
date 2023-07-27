@@ -3,13 +3,15 @@
   $top: auto,
   $right: auto,
   $bottom: auto,
-  $left: auto
+  $left: auto,
+  $z-index: 0
 ) {
   position: $position;
   top: $top;
   right: $right;
   bottom: $bottom;
   left: $left;
+  z-index: $z-index;
 }
 
 @mixin fixedWidth($size) {

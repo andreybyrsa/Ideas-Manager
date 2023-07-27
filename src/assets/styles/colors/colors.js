@@ -1,5 +1,6 @@
 const Colors = {
   'primary-color': '#2151FF',
+  'secondary-color': '#0024A4',
   'lighted-color': '#9A9A9A',
   'black-color': '#000000',
   'white-color': '#FFFFFF',
@@ -9,6 +10,7 @@ const Colors = {
   'danger-color': '#FF0404',
 
   'default-background-color': '#efefef',
+  'background-color--blured': '#0000005d',
 }
 
 export default Colors
