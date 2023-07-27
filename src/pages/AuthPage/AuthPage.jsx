@@ -12,7 +12,7 @@ function AuthPage() {
   const [currentUser, localStorageUser] = useAuth()
 
   if (currentUser || localStorageUser) {
-    return <Navigate to="/" />
+    return <Navigate to="/ideas" />
   }
 
   return (

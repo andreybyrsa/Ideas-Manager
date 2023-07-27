@@ -7,17 +7,17 @@ import ErrorPage from '@Pages/ErrorPage'
 
 import AuthMiddleware from '@Middlewares/AuthMiddleware'
 
-import ideasServise from '@Services/IdeasServise'
+import IdeasService from '@Services/IdeasService'
 
 const router = createBrowserRouter([
   {
     element: <AuthMiddleware />,
     children: [
       {
-        path: '/',
+        path: '/ideas',
         element: <IndexPage />,
         errorElement: <ErrorPage />,
-        loader: ideasServise,
+        loader: IdeasService.getIdeas,
       },
       {
         path: '/profile',

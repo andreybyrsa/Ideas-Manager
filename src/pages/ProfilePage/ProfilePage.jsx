@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { useOutletContext } from 'react-router-dom'
 
 import CreateUserForm from '@Components/CreateUserForm'
-import Button from '@Components/Button'
+import { Button } from '@Components/Button'
 
 import PageLayout from '@Layouts/PageLayout'
 
