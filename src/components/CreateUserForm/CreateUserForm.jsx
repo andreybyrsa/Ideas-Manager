@@ -7,7 +7,7 @@ import Colors from '@Assets/styles/colors/colors'
 import { Typography, TypographyVariants } from '@Components/Typography'
 import Input from '@Components/Input'
 import Select from '@Components/Select'
-import Button from '@Components/Button'
+import { Button } from '@Components/Button'
 
 import { setLoginUser, setRegisterUser } from '@Store/reducers/user/UserReducer'
 

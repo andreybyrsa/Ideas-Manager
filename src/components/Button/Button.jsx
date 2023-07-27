@@ -1,13 +1,11 @@
 import classNames from 'classnames'
 
-import Colors from '@Assets/styles/colors/colors'
-
-import { Typography, TypographyVariants } from '@Components/Typography'
+import { Typography } from '@Components/Typography'
 
 import './Button.scss'
 
-function Button({ className, onClick, children }) {
-  const ButtonClassName = classNames('button', className)
+function Button({ className, type = 'primary', onClick, icon, children }) {
+  const ButtonClassName = classNames('button', `button--${type}`, className)
 
   return (
     <button
@@ -15,12 +13,8 @@ function Button({ className, onClick, children }) {
       className={ButtonClassName}
       onClick={onClick}
     >
-      <Typography
-        color={Colors['primary-color']}
-        variant={TypographyVariants['text-1']}
-      >
-        {children}
-      </Typography>
+      {icon}
+      <Typography>{children}</Typography>
     </button>
   )
 }
