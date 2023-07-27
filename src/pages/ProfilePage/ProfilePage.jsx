@@ -1,8 +1,10 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import { useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import { useOutletContext } from 'react-router-dom'
 
 import CreateUserForm from '@Components/CreateUserForm'
+
 import Button from '@Components/Button'
 
 import PageLayout from '@Layouts/PageLayout'
