@@ -1,14 +1,21 @@
-.navLink {
+.nav-link {
   width: 100%;
   background-color: $white-color;
   border-radius: 6px;
   padding: 10px 20px;
 
-  @include flexible(center, flex-start, $gap:10px);
+  cursor: pointer;
+
+  @include flexible(center, flex-start, $gap: 10px);
 
   transition: all $default-transition-settings;
 
   &:active {
+    background-color: $primary-color;
+    color: $white-color;
+  }
+
+  &--active {
     background-color: $primary-color;
     color: $white-color;
   }

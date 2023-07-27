@@ -1,23 +1,35 @@
+import { useCallback } from 'react'
+import { useDispatch } from 'react-redux'
+import * as Icon from 'react-feather'
 import classNames from 'classnames'
-
-import './LeftSideBar.scss'
 
 import { Typography, TypographyVariants } from '@Components/Typography'
 import Colors from '@Assets/styles/colors/colors'
 import NavLink from '@Components/NavLink'
-import * as Icon from 'react-feather'
+
 import useAuth from '@Hooks/useAuth'
 
+import { removeUser } from '@Store/reducers/user/UserReducer'
+
+import './LeftSideBar.scss'
+
 function LeftSideBar({ className }) {
-  const LeftSidebarClassName = classNames('left-side-bar', className)
   const [currentUser] = useAuth()
-  console.log(currentUser)
+  const dispatch = useDispatch()
+
+  const LeftSidebarClassName = classNames('left-side-bar', className)
+
+  const handleLogout = useCallback(() => {
+    dispatch(removeUser())
+
+    localStorage.removeItem('user')
+  }, [dispatch])
 
   return (
     <div className={LeftSidebarClassName}>
       <div className="left-side-bar__content">
         <Typography
-          variant={TypographyVariants['heading-2']}
+          variant={TypographyVariants['heading-1']}
           color={Colors['primary-color']}
         >
           HITS Ideas
@@ -25,7 +37,7 @@ function LeftSideBar({ className }) {
 
         <div className="left-side-bar__content-link">
           <NavLink
-            to="#"
+            to="/ideas"
             icon={<Icon.Menu />}
           >
             Список идей
@@ -33,7 +45,7 @@ function LeftSideBar({ className }) {
 
           {currentUser?.role === 'initializer' && (
             <NavLink
-              to="#"
+              to="/add-idea"
               icon={<Icon.Plus />}
             >
               Добавить идею
@@ -43,7 +55,7 @@ function LeftSideBar({ className }) {
           {(currentUser?.role === 'projectOffice' ||
             currentUser?.role === 'expert') && (
             <NavLink
-              to="#"
+              to="/settings"
               icon={<Icon.Settings />}
             >
               Настройки
@@ -52,14 +64,14 @@ function LeftSideBar({ className }) {
 
           {currentUser?.role === 'admin' && (
               <NavLink
-                to="#"
+                to="/admin"
                 icon={<Icon.User />}
               >
                 Админ-панель
               </NavLink>
             ) && (
               <NavLink
-                to="#"
+                to="/notes"
                 icon={<Icon.Table />}
               >
                 Отчеты
@@ -67,18 +79,15 @@ function LeftSideBar({ className }) {
             )}
 
           <NavLink
-            to="#"
             icon={<Icon.LogOut />}
+            onClick={handleLogout}
           >
             Выйти
           </NavLink>
         </div>
       </div>
 
-      <Typography
-        variant={TypographyVariants['text-2']}
-        color={Colors['lighted-color']}
-      >
+      <Typography color={Colors['lighted-color']}>
         Высшая школа цифровых технологий 2023 <br />
         Все права защищены
       </Typography>

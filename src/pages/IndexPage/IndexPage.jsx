@@ -3,6 +3,8 @@ import { useDispatch } from 'react-redux'
 import { useLoaderData } from 'react-router-dom'
 import { Plus, Filter } from 'react-feather'
 
+import LeftSideBar from '@Components/LeftSideBar'
+import FilterModal from '@Components/Modal/FilterModal'
 import { Button, ButtonTypes } from '@Components/Button'
 import Colors from '@Assets/styles/colors/colors'
 import Idea from '@Components/Idea'
@@ -14,7 +16,6 @@ import PageLayout from '@Layouts/PageLayout'
 import { setIdeas } from '@Store/reducers/ideas/IdeasReducer'
 
 import './IndexPage.scss'
-import FilterModal from '@Components/Modal/FilterModal'
 
 function IndexPage() {
   const ideas = useLoaderData()
@@ -49,7 +50,10 @@ function IndexPage() {
   }, [])
 
   return (
-    <PageLayout className="index-page">
+    <PageLayout
+      contentClassName="index-page__content"
+      leftSidebar={<LeftSideBar />}
+    >
       <div className="index-page__header">
         <Typography
           variant={TypographyVariants['heading-1']}
