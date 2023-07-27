@@ -14,10 +14,10 @@ const router = createBrowserRouter([
     element: <AuthMiddleware />,
     children: [
       {
-        path: '/',
+        path: '/ideas',
         element: <IndexPage />,
         errorElement: <ErrorPage />,
-        loader: ideasService,
+        loader: ideasService.getIdeas,
       },
       {
         path: '/profile',

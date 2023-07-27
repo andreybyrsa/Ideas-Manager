@@ -1,3 +1,3 @@
-import IdeasReducer from './MessagesReducer'
+import IdeasReducer from './IdeasReducer'
 
 export default IdeasReducer

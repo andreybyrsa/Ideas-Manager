@@ -9,6 +9,7 @@ const Input = memo(function Input({
   type = 'text',
   value,
   setValue,
+  onChange,
   placeholder,
 }) {
   const InputClassName = classNames('input', className)
@@ -16,8 +17,10 @@ const Input = memo(function Input({
   const handleChange = useCallback(
     (event) => {
       setValue(event.target.value)
+
+      onChange(event)
     },
-    [setValue],
+    [setValue, onChange],
   )
 
   return (

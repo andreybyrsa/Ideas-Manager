@@ -1,13 +1,31 @@
 .button {
   width: 100%;
   height: 52px;
-  background-color: $white-color;
+  background-color: $primary-color;
   border-radius: 12px;
-  box-shadow: 1px 1px 5px $lighted-color;
 
-  transition: background-color $default-transition-settings;
+  @include flexible(center, center, $gap: 4px);
 
-  &:active {
-    background-color: $lighted-color;
+  transition: all $default-transition-settings;
+
+  &--primary {
+    background-color: $primary-color;
+    box-shadow: 1px 1px 5px $lighted-color;
+
+    color: $white-color;
+
+    &:active {
+      background-color: $secondary-color;
+    }
+  }
+
+  &--secondary {
+    background-color: $white-color;
+
+    &:active {
+      background-color: $secondary-color;
+
+      color: $white-color;
+    }
   }
 }

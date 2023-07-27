@@ -1,26 +1,61 @@
 .index-page {
-  width: 100vw;
-  height: 100vh;
-
-  @include flexible(center, center, column, $gap: 12px);
-
   &__content {
-    width: 400px;
+    padding: 15px 20px;
 
-    @include flexible(center, center, column, $gap: 12px);
+    @include flexible(flex-start, flex-start, column, $gap: 40px);
   }
 
-  &__typography {
-    color: #124313;
+  &__header {
+    width: 100%;
+
+    @include flexible(center, space-between);
+  }
+
+  &__add-button {
+    padding: 0 20px;
+    width: fit-content;
+  }
+
+  &__search {
+    &-wrapper {
+      padding: 20px;
+      width: 100%;
+      background-color: $primary-color;
+      border-radius: 12px;
+      box-shadow: 1px 1px 5px $lighted-color;
+
+      @include flexible(flex-start, center, $gap: 20px);
+    }
+  }
+
+  &__filter-button {
+    padding: 0 20px;
+    width: fit-content;
+    background-color: $white-color;
   }
 
   &__ideas {
-    padding: 20px;
-    background-color: $white-color;
-    border-radius: 12px;
+    &-wrapper {
+      width: 100%;
 
-    width: 100%;
-    max-width: 500px;
-    @include flexible(flex-start, flex-start, column, $gap: 12px);
+      @include flexible(flex-start, stretch, column, $gap: 20px);
+    }
+
+    &-bar {
+      width: 100%;
+      padding: 4px 20px;
+      @include border(solid, $lighted-color, 0, 0 0 1px);
+
+      text-align: center;
+
+      display: grid;
+      align-items: center;
+      grid-template-columns: 2fr 1fr 1fr 100px 100px;
+      gap: 12px;
+
+      &-dates {
+        @include flexible(center, center, column);
+      }
+    }
   }
 }

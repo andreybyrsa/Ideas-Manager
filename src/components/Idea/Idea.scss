@@ -1,0 +1,25 @@
+.idea {
+  padding: 30px 20px;
+  width: 100%;
+  background-color: $white-color;
+  @include border(solid, $lighted-color, 0, 0 0 1px);
+
+  text-align: center;
+
+  display: grid;
+  align-items: center;
+  grid-template-columns: 2fr 1fr 1fr 100px 100px;
+  gap: 12px;
+
+  &__name {
+    text-align: left;
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  &__dates {
+    @include flexible(center, center, column, $gap: 4px);
+  }
+}

@@ -46,10 +46,13 @@ module.exports = {
     },
   },
   rules: {
-    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
-
     'react/prop-types': 'off',
     'prefer-arrow-callback': 'off',
+
+    'jsx-a11y/no-static-element-interactions': 'off',
+    'jsx-a11y/click-events-have-key-events': 'off',
+    'jsx-a11y/no-noninteractive-element-interactions': 'off',
+
     'import/no-extraneous-dependencies': 'off',
     'no-param-reassign': ['error', { props: false }],
   },

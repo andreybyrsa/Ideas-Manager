@@ -1,11 +1,12 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import { useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import { useOutletContext } from 'react-router-dom'
 
 import CreateUserForm from '@Components/CreateUserForm'
 
-import Button from '@Components/Button'
+import { Button } from '@Components/Button'
+
+import LeftSideBar from '@Components/LeftSideBar'
 
 import PageLayout from '@Layouts/PageLayout'
 
@@ -28,11 +29,16 @@ function ProfilePage() {
   }, [dispatch])
 
   return (
-    <PageLayout className="profile-page">
-      <div>
+    <PageLayout leftSidebar={<LeftSideBar />}>
+      <div className="profile-page">
         {currentUser?.role === 'admin' && <CreateUserForm isLogin={false} />}
         <pre>{JSON.stringify(currentUser, null, 4)}</pre>
-        <Button onClick={handleLogout}>Выйти из аккаунта</Button>
+        <Button
+          className="profile-page__button"
+          onClick={handleLogout}
+        >
+          Выйти из аккаунта
+        </Button>
         {header}
       </div>
     </PageLayout>
