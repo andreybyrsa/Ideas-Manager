@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 
 import { NavLink, useLoaderData } from 'react-router-dom'
@@ -16,7 +17,9 @@ function IndexPage() {
   const ideas = useLoaderData()
   const dispatch = useDispatch()
 
-  dispatch(setIdeas(ideas))
+  useEffect(() => {
+    dispatch(setIdeas(ideas))
+  }, [dispatch, ideas])
 
   return (
     <PageLayout className="index-page">

@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const BASE_URL = process.env.REACT_APP_API_URL
 
-const ideas = [
+const defaultIdeas = [
   {
     id: 0,
     name: 'Беспроводные зарядки на партах',
@@ -36,7 +36,7 @@ const ideasServise = async () => {
   const data = await axios
     .get(`${BASE_URL}idea_manager/`)
     .then((response) => response.data)
-    .catch(() => ideas)
+    .catch(() => defaultIdeas)
   return data
 }
 
