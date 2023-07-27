@@ -1,0 +1,19 @@
+.modal-layout {
+  @include flexible(center, center);
+
+  &--opened {
+    @include position(absolute, 0, 0, 0, 0, 1);
+
+    animation: openModalLayout $default-animation-settings;
+  }
+}
+
+@keyframes openModalLayout {
+  from {
+    background-color: transparent;
+  }
+
+  to {
+    background-color: $background-color--blured;
+  }
+}
