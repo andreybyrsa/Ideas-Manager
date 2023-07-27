@@ -1,4 +1,16 @@
 .page-layout {
-  padding: 20px 16px;
+  width: 100%;
+  height: 100vh;
+
   background-color: $default-background-color;
+
+  @include flexible(flex-start, flex-start);
+
+  &__leftsidebar {
+    // width: 100%;
+    max-width: 320px;
+    height: 100vh;
+
+    @include position(sticky, $left: 0, $top: 0, $bottom: 0);
+  }
 }
