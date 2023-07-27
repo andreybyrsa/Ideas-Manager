@@ -45,7 +45,7 @@ function CreateUserForm({ className, isLogin }) {
       return dispatch(setLoginUser(user))
     }
     return dispatch(setRegisterUser(user))
-  }, [isLogin, username, firstName, lastName, password, role, dispatch])
+  }, [isLogin, username, firstName, lastName, password, dispatch, role])
 
   const currentInputs = useMemo(() => {
     const inputs = [

@@ -11,7 +11,6 @@ import useAuth from '@Hooks/useAuth'
 function LeftSideBar({ className }) {
   const LeftSidebarClassName = classNames('left-side-bar', className)
   const [currentUser] = useAuth()
-  console.log(currentUser)
 
   return (
     <div className={LeftSidebarClassName}>
