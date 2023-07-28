@@ -1,7 +1,7 @@
 .filter-modal {
   width: 400px;
 
-  @include flexible(flex-start, center, column, $gap: 12px);
+  @include flexible(flex-start, center, column, $gap: 16px);
 
   &__header {
     @include flexible(center, space-between);

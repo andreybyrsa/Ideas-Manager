@@ -1,4 +1,4 @@
-import { memo, useCallback } from 'react'
+import { memo, useCallback, useMemo } from 'react'
 
 import classNames from 'classnames'
 
@@ -23,13 +23,22 @@ const Input = memo(function Input({
     [setValue, onChange],
   )
 
-  return (
+  const InputProps = useMemo(
+    () => ({
+      className: InputClassName,
+      value,
+      onChange: handleChange,
+      placeholder,
+    }),
+    [InputClassName, handleChange, placeholder, value],
+  )
+
+  return type === 'textarea' ? (
+    <textarea {...InputProps} />
+  ) : (
     <input
       type={type}
-      className={InputClassName}
-      value={value}
-      onChange={handleChange}
-      placeholder={placeholder}
+      {...InputProps}
     />
   )
 })

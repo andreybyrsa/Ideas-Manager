@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 
 function Typography({ className, children }) {
-  const isTextProperty = className?.split('-')[0] === 'fs'
+  const isTextProperty = className?.includes('fs')
 
   const TypographyClassName = classNames({ 'fs-5': !isTextProperty }, className)
 

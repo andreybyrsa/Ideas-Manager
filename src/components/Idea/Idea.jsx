@@ -1,3 +1,4 @@
+import { memo, useCallback } from 'react'
 import classNames from 'classnames'
 
 import Typography from '@Components/Typography'
@@ -6,13 +7,13 @@ import getCurrentDate from '@Utils/getCurrentDate'
 
 import './Idea.scss'
 
-function Idea({ className, idea }) {
+const Idea = memo(function Idea({ className, idea }) {
   const IdeaClassName = classNames(
     'idea w-100 px-3 py-4 text-center',
     className,
   )
 
-  const getRatingColor = (rating) => {
+  const getRatingColor = useCallback((rating) => {
     if (rating >= 4.0) {
       return 'text-success'
     }
@@ -20,9 +21,9 @@ function Idea({ className, idea }) {
       return 'text-warning'
     }
     return 'text-danger'
-  }
+  }, [])
 
-  const getRiskColor = (risk) => {
+  const getRiskColor = useCallback((risk) => {
     if (risk <= 0.2) {
       return 'text-success'
     }
@@ -33,7 +34,7 @@ function Idea({ className, idea }) {
       return 'text-secondary'
     }
     return 'text-danger'
-  }
+  }, [])
 
   return (
     <div className={IdeaClassName}>
@@ -53,6 +54,6 @@ function Idea({ className, idea }) {
       <Typography className={getRiskColor(idea.risk)}>{idea.risk}</Typography>
     </div>
   )
-}
+})
 
 export default Idea

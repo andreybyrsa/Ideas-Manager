@@ -1,7 +1,9 @@
 import classNames from 'classnames'
 
+import './Button.scss'
+
 function Button({ className, onClick, iconName, children }) {
-  const ButtonClassName = classNames('btn btn-lg d-flex gap-1', className)
+  const ButtonClassName = classNames('btn btn-lg d-flex', className)
 
   return (
     <button

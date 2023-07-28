@@ -1,6 +1,4 @@
 .profile-page {
-  @include flexible(center, center, column, $gap: 16px);
-
   &__content {
     @include flexible(center, space-between, column, $gap: 16px);
   }

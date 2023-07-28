@@ -9,12 +9,18 @@ function ToggleButton({ className, value, setValue }) {
     'toggle-button__switcher--active',
   )
 
-  const ToggleButtonClassName = classNames('toggle-button', className)
+  const ToggleButtonClassName = classNames(
+    'toggle-button rounded-pill shadow',
+    className,
+  )
 
-  const SwitcherCalssName = classNames('toggle-button__switcher', {
-    'toggle-button__switcher--active': value,
-    'toggle-button__switcher--disabled': isActive && !value,
-  })
+  const SwitcherCalssName = classNames(
+    'toggle-button__switcher rounded-circle',
+    {
+      'toggle-button__switcher--active': value,
+      'toggle-button__switcher--disabled': isActive && !value,
+    },
+  )
 
   const handleToggle = useCallback(() => {
     setValue((prevState) => !prevState)

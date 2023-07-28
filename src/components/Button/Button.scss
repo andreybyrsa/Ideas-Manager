@@ -1,0 +1,3 @@
+.btn {
+  @include flexible(center, center, $gap: 4px);
+}

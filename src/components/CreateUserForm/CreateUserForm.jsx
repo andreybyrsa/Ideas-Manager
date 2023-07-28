@@ -112,7 +112,7 @@ function CreateUserForm({ className, isLogin }) {
       </div>
 
       <Button
-        className="btn-primary w-100 justify-content-center"
+        className="btn-primary w-100"
         onClick={handleSubmit}
       >
         {isLogin ? 'Войти' : 'Зарегистрировать'}

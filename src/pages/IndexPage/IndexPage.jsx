@@ -14,6 +14,7 @@ import PageLayout from '@Layouts/PageLayout'
 import { setIdeas } from '@Store/reducers/ideas/IdeasReducer'
 
 import './IndexPage.scss'
+import ToggleButton from '@Components/ToogleButton'
 
 function IndexPage() {
   const ideas = useLoaderData()
@@ -23,6 +24,7 @@ function IndexPage() {
   const [searchValue, setSearchValue] = useState('')
   const [filter, setFilter] = useState('')
   const [isOpenModal, setIsOpenModal] = useState(false)
+  const [value, setValue] = useState(false)
 
   useEffect(() => {
     dispatch(setIdeas(ideas))
@@ -112,6 +114,10 @@ function IndexPage() {
           <Typography>Рейтинг</Typography>
           <Typography>Риск</Typography>
         </div>
+        <ToggleButton
+          value={value}
+          setValue={setValue}
+        />
 
         <div className="index-page__ideas w-100">
           {currentIdeas.map((currentIdea) => (

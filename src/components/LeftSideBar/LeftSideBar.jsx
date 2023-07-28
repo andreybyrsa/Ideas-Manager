@@ -40,7 +40,7 @@ function LeftSideBar({ className }) {
           <Typography className="fs-2 text-primary">HITS Ideas</Typography>
         </div>
 
-        <div className="nav nav-pills nav-fill w-100 flex-column">
+        <div className="nav nav-pills w-100 flex-column">
           <NavTab
             to="/ideas"
             iconName="bi bi-list"

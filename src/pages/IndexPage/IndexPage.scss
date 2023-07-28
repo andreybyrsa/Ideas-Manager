@@ -11,6 +11,10 @@
     @include flexible(flex-start, center, $gap: 16px);
   }
 
+  &__filter-button {
+    width: 200px;
+  }
+
   &__ideas {
     @include flexible(flex-start, center, column);
 

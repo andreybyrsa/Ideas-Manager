@@ -2,14 +2,10 @@
   @include flexible(center, space-between, column);
 
   &__header {
-    @include flexible(center, center, $gap: 4px);
+    @include flexible(center, center, $gap: 8px);
   }
 
   &__content {
     @include flexible(center, flex-start, column, $gap: 40px);
-
-    &-links {
-      @include flexible(center, flex-start, column, $gap: 16px);
-    }
   }
 }

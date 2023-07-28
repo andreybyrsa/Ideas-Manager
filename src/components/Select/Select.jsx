@@ -1,5 +1,5 @@
-import classNames from 'classnames'
 import { memo, useCallback } from 'react'
+import classNames from 'classnames'
 
 const Select = memo(function Select({ className, options, setValue }) {
   const SelectClassName = classNames('form-select text-center', className)

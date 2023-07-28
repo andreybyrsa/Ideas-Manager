@@ -74,38 +74,34 @@ function FilterModal({ className, isOpen, setIsOpen, setFilter }) {
     >
       <div className={FilterModalClassName}>
         <div className="filter-modal__header w-100">
-          <Typography className="fs-3 text-primary">Фильтры</Typography>
+          <Typography className="fs-3">Фильтры</Typography>
           <Button
             className="btn-close"
             onClick={closeFilterModal}
           />
         </div>
 
-        <div className="list-group w-100">
-          {filters.map((currentFilter) => (
-            <div
-              key={currentFilter.id}
+        <ul className="list-group w-100">
+          {filters.map((option) => (
+            <li
+              key={option.id}
               className={
-                currentFilter.isAcitve
-                  ? `${OptionClassName} active`
-                  : OptionClassName
+                option.isAcitve ? `${OptionClassName} active` : OptionClassName
               }
-              onClick={() =>
-                handleClickOption(currentFilter.id, currentFilter.filter)
-              }
+              onClick={() => handleClickOption(option.id, option.filter)}
             >
               <input
                 type="checkbox"
-                checked={currentFilter.isAcitve}
+                checked={option.isAcitve}
                 readOnly
               />
-              <Typography>{currentFilter.text}</Typography>
-            </div>
+              <Typography>{option.text}</Typography>
+            </li>
           ))}
-        </div>
+        </ul>
 
         <Button
-          className="btn-primary w-100 justify-content-center"
+          className="btn-primary w-100"
           onClick={handleResetFilter}
         >
           Отменить фильтры

@@ -4,6 +4,6 @@
   &__leftsidebar {
     @include position(sticky, $left: 0, $top: 0, $bottom: 0);
 
-    width: 320px;
+    min-width: 320px;
   }
 }

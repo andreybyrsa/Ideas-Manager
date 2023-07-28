@@ -3,11 +3,10 @@ import { NavLink } from 'react-router-dom'
 
 import Typography from '@Components/Typography'
 
+import './NavTab.scss'
+
 function NavTab({ className, iconName, to, onClick, children }) {
-  const NavTabClassName = classNames(
-    'nav-link fs-4 d-flex align-items-center gap-1',
-    className,
-  )
+  const NavTabClassName = classNames('nav-link fs-4 d-flex', className)
 
   return (
     <NavLink
