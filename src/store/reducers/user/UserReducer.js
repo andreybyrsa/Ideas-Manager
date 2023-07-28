@@ -9,6 +9,7 @@ const UserSlice = createSlice({
       state.globalUser = action.payload
     },
     setRole: (state, action) => {
+      delete state.globalUser.roles
       state.globalUser = {...state.globalUser, role: action.payload}
     },
     setLoginUser: (state, action) => {

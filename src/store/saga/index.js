@@ -18,12 +18,13 @@ function* authWorker(apiService) {
 
   const response = yield call(apiService, currentUser)
 
-  const { user, success, error } = response
+  const { user, roles, success, error } = response
+  const responseUser = {...user, roles}
 
   if (user) {
-    yield put(setGlobalUser(user))
+    yield put(setGlobalUser(responseUser))
 
-    yield localStorage.setItem('user', JSON.stringify(user))
+    yield localStorage.setItem('user', JSON.stringify(responseUser))
   } else if (success) {
     yield put(setSuccess(success))
   } else if (error) {
