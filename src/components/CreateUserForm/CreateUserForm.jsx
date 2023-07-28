@@ -2,12 +2,10 @@ import { useCallback, useState, useMemo } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import classNames from 'classnames'
 
-import Colors from '@Assets/styles/colors/colors'
-
-import { Typography, TypographyVariants } from '@Components/Typography'
+import Typography from '@Components/Typography'
 import Input from '@Components/Input'
 import Select from '@Components/Select'
-import { Button } from '@Components/Button'
+import Button from '@Components/Button'
 
 import { setLoginUser, setRegisterUser } from '@Store/reducers/user/UserReducer'
 
@@ -85,15 +83,18 @@ function CreateUserForm({ className, isLogin }) {
     return inputs
   }, [isLogin, username, firstName, lastName, password])
 
-  const CreateUserFormClassName = classNames('create-user-form', className)
+  const CreateUserFormClassName = classNames(
+    'create-user-form p-3 bg-white rounded shadow',
+    className,
+  )
 
   return (
     <div className={CreateUserFormClassName}>
-      <Typography variant={TypographyVariants['heading-1']}>
+      <Typography className="fs-4 text-primary">
         {isLogin ? 'Авторизация' : 'Регистрация пользователя'}
       </Typography>
 
-      <div className="create-user-form__inputs">
+      <div className="create-user-form__inputs w-100">
         {currentInputs.map((input) => (
           <Input
             key={input.key}
@@ -110,14 +111,15 @@ function CreateUserForm({ className, isLogin }) {
         />
       </div>
 
-      <Button onClick={handleSubmit}>
+      <Button
+        className="btn-primary w-100 justify-content-center"
+        onClick={handleSubmit}
+      >
         {isLogin ? 'Войти' : 'Зарегистрировать'}
       </Button>
 
-      {success && (
-        <Typography color={Colors['success-color']}>{success}</Typography>
-      )}
-      {error && <Typography color={Colors['danger-color']}>{error}</Typography>}
+      {success && <Typography className="text-success">{success}</Typography>}
+      {error && <Typography className="text-error">{error}</Typography>}
     </div>
   )
 }

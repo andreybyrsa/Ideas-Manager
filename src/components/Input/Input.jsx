@@ -2,8 +2,6 @@ import { memo, useCallback } from 'react'
 
 import classNames from 'classnames'
 
-import './Input.scss'
-
 const Input = memo(function Input({
   className,
   type = 'text',
@@ -12,13 +10,15 @@ const Input = memo(function Input({
   onChange,
   placeholder,
 }) {
-  const InputClassName = classNames('input', className)
+  const InputClassName = classNames('form-control form-control-lg', className)
 
   const handleChange = useCallback(
     (event) => {
       setValue(event.target.value)
 
-      onChange(event)
+      if (onChange) {
+        onChange(event)
+      }
     },
     [setValue, onChange],
   )

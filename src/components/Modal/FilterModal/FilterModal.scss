@@ -1,26 +1,16 @@
 .filter-modal {
-  padding: 20px;
   width: 400px;
-  background-color: $white-color;
-  border-radius: 12px;
 
-  @include flexible(flex-end, space-between, column, $gap: 12px);
+  @include flexible(flex-start, center, column, $gap: 12px);
 
-  &__close-button {
-    cursor: pointer;
+  &__header {
+    @include flexible(center, space-between);
   }
 
   &__option {
-    width: 100%;
-    height: 48px;
-
-    transition: background-color $default-transition-settings;
+    cursor: pointer;
 
     @include flexible(center, flex-start, $gap: 8px);
-
-    &--active {
-      background-color: $primary-color;
-    }
   }
 
   &--opened {

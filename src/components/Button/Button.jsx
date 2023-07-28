@@ -1,11 +1,7 @@
 import classNames from 'classnames'
 
-import { Typography } from '@Components/Typography'
-
-import './Button.scss'
-
-function Button({ className, type = 'primary', onClick, icon, children }) {
-  const ButtonClassName = classNames('button', `button--${type}`, className)
+function Button({ className, onClick, iconName, children }) {
+  const ButtonClassName = classNames('btn btn-lg d-flex gap-1', className)
 
   return (
     <button
@@ -13,8 +9,8 @@ function Button({ className, type = 'primary', onClick, icon, children }) {
       className={ButtonClassName}
       onClick={onClick}
     >
-      {icon}
-      <Typography>{children}</Typography>
+      {iconName && <i className={iconName} />}
+      {children}
     </button>
   )
 }

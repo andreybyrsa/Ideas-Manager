@@ -1,15 +1,9 @@
 .create-user-form {
-  padding: 20px;
   width: 400px;
-  background-color: $white-color;
-  border-radius: 12px;
-  box-shadow: 1px 1px 5px $lighted-color;
 
-  @include flexible(center, space-between, column, $gap: 20px);
+  @include flexible(center, space-between, column, $gap: 16px);
 
   &__inputs {
-    width: 100%;
-
-    @include flexible(center, space-between, column, $gap: 12px);
+    @include flexible(center, space-between, column, $gap: 16px);
   }
 }

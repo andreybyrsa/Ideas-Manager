@@ -64,3 +64,31 @@
     gap: $gap;
   }
 }
+
+@mixin gridable(
+  $grid-columns: none,
+  $grid-rows: none,
+  $gap: 0,
+  $align-items: flex-start,
+  $align-content: stretch,
+  $justify-items: stretch,
+  $justify-content: flex-start
+) {
+  display: grid;
+  justify-content: $justify-content;
+  align-content: $align-content;
+  justify-items: $justify-items;
+  align-items: $align-items;
+
+  @if $grid-columns != none {
+    grid-template-columns: $grid-columns;
+  }
+
+  @if $grid-rows != none {
+    grid-template-rows: $grid-rows;
+  }
+
+  @if $gap != none {
+    gap: $gap;
+  }
+}

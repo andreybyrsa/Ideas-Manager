@@ -1,15 +1,13 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useLoaderData } from 'react-router-dom'
-import { Plus, Filter } from 'react-feather'
 
 import LeftSideBar from '@Components/LeftSideBar'
 import FilterModal from '@Components/Modal/FilterModal'
-import { Button, ButtonTypes } from '@Components/Button'
-import Colors from '@Assets/styles/colors/colors'
+import Button from '@Components/Button'
 import Idea from '@Components/Idea'
 import Input from '@Components/Input'
-import { Typography, TypographyVariants } from '@Components/Typography'
+import Typography from '@Components/Typography'
 
 import PageLayout from '@Layouts/PageLayout'
 
@@ -23,11 +21,28 @@ function IndexPage() {
 
   const [currentIdeas, setCurrentIdeas] = useState(ideas)
   const [searchValue, setSearchValue] = useState('')
+  const [filter, setFilter] = useState('')
   const [isOpenModal, setIsOpenModal] = useState(false)
 
   useEffect(() => {
     dispatch(setIdeas(ideas))
   }, [dispatch, ideas])
+
+  useEffect(() => {
+    let copiedIdeas = [...ideas]
+    if (filter === 'status') {
+      copiedIdeas = copiedIdeas.filter((idea) => idea.status === 'Утверждено')
+    }
+    if (filter === 'rating' || filter === 'risk') {
+      copiedIdeas.sort((a, b) => {
+        if (filter === 'rating') {
+          return b.rating - a.rating
+        }
+        return a.risk - b.risk
+      })
+    }
+    setCurrentIdeas(copiedIdeas)
+  }, [filter, ideas])
 
   const handleSearch = useCallback(
     (event) => {
@@ -54,22 +69,17 @@ function IndexPage() {
       contentClassName="index-page__content"
       leftSidebar={<LeftSideBar />}
     >
-      <div className="index-page__header">
-        <Typography
-          variant={TypographyVariants['heading-1']}
-          color={Colors['primary-color']}
-        >
-          Идеи
-        </Typography>
+      <div className="index-page__header w-100">
+        <Typography className="fs-2 text-primary">Идеи</Typography>
         <Button
-          className="index-page__add-button"
-          icon={<Plus />}
+          className="btn-primary"
+          iconName="bi bi-plus-lg"
         >
           Добавить идею
         </Button>
       </div>
 
-      <div className="index-page__search-wrapper">
+      <div className="index-page__search p-3 w-100 bg-primary rounded">
         <Input
           value={searchValue}
           setValue={setSearchValue}
@@ -77,9 +87,8 @@ function IndexPage() {
           placeholder="Поиск идей по названию"
         />
         <Button
-          className="index-page__filter-button"
-          type={ButtonTypes.secondary}
-          icon={<Filter />}
+          className="btn-light"
+          iconName="bi bi-funnel"
           onClick={handelOpenModal}
         >
           Фильтры
@@ -89,15 +98,14 @@ function IndexPage() {
       <FilterModal
         isOpen={isOpenModal}
         setIsOpen={setIsOpenModal}
+        setFilter={setFilter}
       />
 
-      <div className="index-page__ideas-wrapper">
-        <div className="index-page__ideas-bar">
+      <div className="index-page__ideas-wrapper w-100">
+        <div className="index-page__ideas-bar px-3 w-100 text-center">
           <Typography>Название идеи</Typography>
           <div className="index-page__ideas-bar-dates">
-            <Typography color={Colors['primary-color']}>
-              Дата создания/
-            </Typography>
+            <Typography className="text-primary">Дата создания/</Typography>
             <Typography>редактирования</Typography>
           </div>
           <Typography>Статус</Typography>
@@ -105,7 +113,7 @@ function IndexPage() {
           <Typography>Риск</Typography>
         </div>
 
-        <div className="index-page__ideas">
+        <div className="index-page__ideas w-100">
           {currentIdeas.map((currentIdea) => (
             <Idea
               key={currentIdea.id}

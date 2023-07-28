@@ -1,6 +1,4 @@
-import Colors from '@Assets/styles/colors/colors'
-
-import { Typography, TypographyVariants } from '@Components/Typography'
+import Typography from '@Components/Typography'
 
 import PageLayout from '@Layouts/PageLayout'
 
@@ -8,11 +6,11 @@ import './ErrorPage.scss'
 
 function ErrorPage() {
   return (
-    <PageLayout className="error-page">
-      <Typography
-        color={Colors['primary-color']}
-        variant={TypographyVariants['heading-1']}
-      >
+    <PageLayout
+      className="error-page"
+      contentClassName="text-center"
+    >
+      <Typography className="fs-2 text-primary">
         Произошла ошибка, мы стараемся ее починить!
       </Typography>
     </PageLayout>

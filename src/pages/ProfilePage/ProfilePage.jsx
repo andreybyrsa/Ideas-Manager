@@ -4,7 +4,7 @@ import { useOutletContext } from 'react-router-dom'
 
 import CreateUserForm from '@Components/CreateUserForm'
 
-import { Button } from '@Components/Button'
+import Button from '@Components/Button'
 
 import LeftSideBar from '@Components/LeftSideBar'
 
@@ -34,7 +34,7 @@ function ProfilePage() {
         {currentUser?.role === 'admin' && <CreateUserForm isLogin={false} />}
         <pre>{JSON.stringify(currentUser, null, 4)}</pre>
         <Button
-          className="profile-page__button"
+          className="btn-primary"
           onClick={handleLogout}
         >
           Выйти из аккаунта

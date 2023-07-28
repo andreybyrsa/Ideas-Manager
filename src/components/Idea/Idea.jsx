@@ -1,45 +1,43 @@
 import classNames from 'classnames'
 
-import Colors from '@Assets/styles/colors/colors'
-
-import { Typography } from '@Components/Typography'
+import Typography from '@Components/Typography'
 
 import getCurrentDate from '@Utils/getCurrentDate'
 
 import './Idea.scss'
 
 function Idea({ className, idea }) {
-  const IdeaClassName = classNames('idea', className)
+  const IdeaClassName = classNames(
+    'idea w-100 px-3 py-4 text-center',
+    className,
+  )
 
   const getRatingColor = (rating) => {
     if (rating >= 4.0) {
-      return Colors['success-color']
+      return 'text-success'
     }
     if (rating < 4.0 && rating >= 3.0) {
-      return Colors['warning-color']
+      return 'text-warning'
     }
-    return Colors['danger-color']
+    return 'text-danger'
   }
 
   const getRiskColor = (risk) => {
     if (risk <= 0.2) {
-      return Colors['success-color']
+      return 'text-success'
     }
     if (risk > 0.2 && risk <= 0.4) {
-      return Colors['warning-color']
+      return 'text-warning'
     }
     if (risk > 0.4 && risk <= 0.6) {
-      return Colors['medium-color']
+      return 'text-secondary'
     }
-    return Colors['danger-color']
+    return 'text-danger'
   }
 
   return (
     <div className={IdeaClassName}>
-      <Typography
-        className="idea__name"
-        color={Colors['primary-color']}
-      >
+      <Typography className="idea__name text-primary text-start">
         {idea.name}
       </Typography>
       <div className="idea__dates">
@@ -48,9 +46,11 @@ function Idea({ className, idea }) {
           <Typography>{getCurrentDate(idea.time_update)}</Typography>
         )}
       </div>
-      <Typography color={Colors['primary-color']}>{idea.status}</Typography>
-      <Typography color={getRatingColor(idea.rating)}>{idea.rating}</Typography>
-      <Typography color={getRiskColor(idea.risk)}>{idea.risk}</Typography>
+      <Typography className="text-primary">{idea.status}</Typography>
+      <Typography className={getRatingColor(idea.rating)}>
+        {idea.rating}
+      </Typography>
+      <Typography className={getRiskColor(idea.risk)}>{idea.risk}</Typography>
     </div>
   )
 }
