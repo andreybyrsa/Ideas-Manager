@@ -57,12 +57,13 @@ function LeftSideBar({ className }) {
             </NavTab>
           )}
 
-          {currentUser?.role === 'admin' && (
+          {(currentUser?.role === 'admin' ||
+            currentUser?.role === 'projectOffice') && (
             <NavTab
               to="/admin"
-              iconName="bi bi-person"
+              iconName="bi bi-gear"
             >
-              Админ-панель
+              Найстройки
             </NavTab>
           )}
 
