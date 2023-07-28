@@ -1,0 +1,32 @@
+.filter-modal {
+  width: 400px;
+
+  @include flexible(flex-start, center, column, $gap: 12px);
+
+  &__header {
+    @include flexible(center, space-between);
+  }
+
+  &__option {
+    cursor: pointer;
+
+    @include flexible(center, flex-start, $gap: 8px);
+  }
+
+  &--opened {
+    animation: openFilterModal $default-animation-settings;
+  }
+}
+
+@keyframes openFilterModal {
+  from {
+    opacity: 0;
+
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+
+    transform: scale(1);
+  }
+}

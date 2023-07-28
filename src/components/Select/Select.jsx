@@ -1,10 +1,8 @@
 import classNames from 'classnames'
 import { memo, useCallback } from 'react'
 
-import './Select.scss'
-
 const Select = memo(function Select({ className, options, setValue }) {
-  const SelectClassName = classNames('select', className)
+  const SelectClassName = classNames('form-select text-center', className)
 
   const handleSelectChange = useCallback(
     (event) => {

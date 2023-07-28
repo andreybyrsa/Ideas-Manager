@@ -1,10 +1,13 @@
+import { useCallback, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
+import { useLoaderData } from 'react-router-dom'
 
-import { NavLink, useLoaderData } from 'react-router-dom'
-
-import Colors from '@Assets/styles/colors/colors'
-
-import { Typography } from '@Components/Typography'
+import LeftSideBar from '@Components/LeftSideBar'
+import FilterModal from '@Components/Modal/FilterModal'
+import Button from '@Components/Button'
+import Idea from '@Components/Idea'
+import Input from '@Components/Input'
+import Typography from '@Components/Typography'
 
 import PageLayout from '@Layouts/PageLayout'
 
@@ -16,35 +19,108 @@ function IndexPage() {
   const ideas = useLoaderData()
   const dispatch = useDispatch()
 
-  dispatch(setIdeas(ideas))
+  const [currentIdeas, setCurrentIdeas] = useState(ideas)
+  const [searchValue, setSearchValue] = useState('')
+  const [filter, setFilter] = useState('')
+  const [isOpenModal, setIsOpenModal] = useState(false)
+
+  useEffect(() => {
+    dispatch(setIdeas(ideas))
+  }, [dispatch, ideas])
+
+  useEffect(() => {
+    let copiedIdeas = [...ideas]
+    if (filter === 'status') {
+      copiedIdeas = copiedIdeas.filter((idea) => idea.status === 'Утверждено')
+    }
+    if (filter === 'rating' || filter === 'risk') {
+      copiedIdeas.sort((a, b) => {
+        if (filter === 'rating') {
+          return b.rating - a.rating
+        }
+        return a.risk - b.risk
+      })
+    }
+    setCurrentIdeas(copiedIdeas)
+  }, [filter, ideas])
+
+  const handleSearch = useCallback(
+    (event) => {
+      const copiedSearchValue = event.target.value.toLowerCase().trim()
+      const copiedIdeas = [...ideas]
+
+      setCurrentIdeas(
+        copiedIdeas.filter((idea) => {
+          const ideaName = idea.name.toLowerCase()
+
+          return ideaName.includes(copiedSearchValue)
+        }),
+      )
+    },
+    [ideas, setCurrentIdeas],
+  )
+
+  const handelOpenModal = useCallback(() => {
+    setIsOpenModal(true)
+  }, [])
 
   return (
-    <PageLayout className="index-page">
-      <NavLink to="/profile">
-        <Typography color={Colors['primary-color']}>
-          Перейти на профиль
-        </Typography>
-      </NavLink>
+    <PageLayout
+      contentClassName="index-page__content"
+      leftSidebar={<LeftSideBar />}
+    >
+      <div className="index-page__header w-100">
+        <Typography className="fs-2 text-primary">Идеи</Typography>
+        <Button
+          className="btn-primary"
+          iconName="bi bi-plus-lg"
+        >
+          Добавить идею
+        </Button>
+      </div>
 
-      <div className="index-page__content">
-        {ideas.map((elem) => (
-          <div
-            key={elem.id}
-            className="index-page__ideas"
-          >
-            <b>{elem.name}</b>
-            <span>Дата cоздания: {elem.time_create}</span>
-            <span>
-              Редактирование:{' '}
-              {elem.time_create !== elem.time_update
-                ? elem.time_update
-                : 'Не редактировалось'}
-            </span>
-            <span>Статус: {elem.status}</span>
-            <span>Рейтинг: {elem.rating}</span>
-            <span>Риск: {elem.risk}</span>
+      <div className="index-page__search p-3 w-100 bg-primary rounded">
+        <Input
+          value={searchValue}
+          setValue={setSearchValue}
+          onChange={handleSearch}
+          placeholder="Поиск идей по названию"
+        />
+        <Button
+          className="btn-light"
+          iconName="bi bi-funnel"
+          onClick={handelOpenModal}
+        >
+          Фильтры
+        </Button>
+      </div>
+
+      <FilterModal
+        isOpen={isOpenModal}
+        setIsOpen={setIsOpenModal}
+        setFilter={setFilter}
+      />
+
+      <div className="index-page__ideas-wrapper w-100">
+        <div className="index-page__ideas-bar px-3 w-100 text-center">
+          <Typography>Название идеи</Typography>
+          <div className="index-page__ideas-bar-dates">
+            <Typography className="text-primary">Дата создания/</Typography>
+            <Typography>редактирования</Typography>
           </div>
-        ))}
+          <Typography>Статус</Typography>
+          <Typography>Рейтинг</Typography>
+          <Typography>Риск</Typography>
+        </div>
+
+        <div className="index-page__ideas w-100">
+          {currentIdeas.map((currentIdea) => (
+            <Idea
+              key={currentIdea.id}
+              idea={currentIdea}
+            />
+          ))}
+        </div>
       </div>
     </PageLayout>
   )

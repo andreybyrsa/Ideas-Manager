@@ -1,83 +1,92 @@
+import { useCallback } from 'react'
+import { useDispatch } from 'react-redux'
 import classNames from 'classnames'
+
+import logo from '@Assets/images'
+
+import Button from '@Components/Button'
+import Typography from '@Components/Typography'
+import NavTab from '@Components/NavTab'
+
+import useAuth from '@Hooks/useAuth'
+
+import { removeUser } from '@Store/reducers/user/UserReducer'
 
 import './LeftSideBar.scss'
 
-import { Typography, TypographyVariants } from '@Components/Typography'
-import Colors from '@Assets/styles/colors/colors'
-import NavLink from '@Components/NavLink'
-import * as Icon from 'react-feather'
-import useAuth from '@Hooks/useAuth'
-
 function LeftSideBar({ className }) {
-  const LeftSidebarClassName = classNames('left-side-bar', className)
   const [currentUser] = useAuth()
+  const dispatch = useDispatch()
+
+  const LeftSidebarClassName = classNames(
+    'left-side-bar w-100 h-100 p-3 bg-white',
+    className,
+  )
+
+  const handleLogout = useCallback(() => {
+    dispatch(removeUser())
+
+    localStorage.removeItem('user')
+  }, [dispatch])
 
   return (
     <div className={LeftSidebarClassName}>
-      <div className="left-side-bar__content">
-        <Typography
-          variant={TypographyVariants['heading-2']}
-          color={Colors['primary-color']}
-        >
-          HITS Ideas
-        </Typography>
+      <div className="left-side-bar__content w-100">
+        <div className="left-side-bar__header">
+          <img
+            src={logo}
+            alt="logo"
+          />
+          <Typography className="fs-2 text-primary">HITS Ideas</Typography>
+        </div>
 
-        <div className="left-side-bar__content-link">
-          <NavLink
-            to="#"
-            icon={<Icon.Menu />}
+        <div className="nav nav-pills nav-fill w-100 flex-column">
+          <NavTab
+            to="/ideas"
+            iconName="bi bi-list"
           >
             Список идей
-          </NavLink>
+          </NavTab>
 
           {currentUser?.role === 'initializer' && (
-            <NavLink
-              to="#"
-              icon={<Icon.Plus />}
+            <NavTab
+              to="/add-idea"
+              iconName="bi bi-plus-lg"
             >
               Добавить идею
-            </NavLink>
-          )}
-
-          {(currentUser?.role === 'projectOffice' ||
-            currentUser?.role === 'expert') && (
-            <NavLink
-              to="#"
-              icon={<Icon.Settings />}
-            >
-              Настройки
-            </NavLink>
+            </NavTab>
           )}
 
           {currentUser?.role === 'admin' && (
-              <NavLink
-                to="#"
-                icon={<Icon.User />}
-              >
-                Админ-панель
-              </NavLink>
-            ) && (
-              <NavLink
-                to="#"
-                icon={<Icon.Table />}
-              >
-                Отчеты
-              </NavLink>
-            )}
+            <NavTab
+              to="/admin"
+              iconName="bi bi-person"
+            >
+              Админ-панель
+            </NavTab>
+          )}
 
-          <NavLink
-            to="#"
-            icon={<Icon.LogOut />}
+          {(currentUser?.role === 'admin' ||
+            currentUser?.role === 'expert') && (
+            <NavTab
+              to="/notes"
+              iconName="bi bi-file-earmark"
+            >
+              Отчеты
+            </NavTab>
+          )}
+
+          <Button
+            className="btn-light"
+            iconName="bi bi-box-arrow-left"
+            onClick={handleLogout}
           >
             Выйти
-          </NavLink>
+          </Button>
         </div>
       </div>
 
-      <Typography
-        variant={TypographyVariants['text-2']}
-        color={Colors['lighted-color']}
-      >
+      <Typography className="text-secondary">
         Высшая школа цифровых технологий 2023 <br />
         Все права защищены
       </Typography>

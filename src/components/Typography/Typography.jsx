@@ -1,27 +1,11 @@
 import classNames from 'classnames'
 
-import './Typography.scss'
+function Typography({ className, children }) {
+  const isTextProperty = className?.split('-')[0] === 'fs'
 
-function Typography({ className, variant = 'regular-18', color, children }) {
-  const TypographyClassName = classNames(
-    'typography',
-    `typography--${variant}`,
-    className,
-  )
-  const typographyStyles = {}
+  const TypographyClassName = classNames({ 'fs-5': !isTextProperty }, className)
 
-  if (color) {
-    typographyStyles.color = color
-  }
-
-  return (
-    <p
-      className={TypographyClassName}
-      style={typographyStyles}
-    >
-      {children}
-    </p>
-  )
+  return <p className={TypographyClassName}>{children}</p>
 }
 
 export default Typography

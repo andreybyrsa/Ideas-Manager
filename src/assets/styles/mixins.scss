@@ -3,13 +3,15 @@
   $top: auto,
   $right: auto,
   $bottom: auto,
-  $left: auto
+  $left: auto,
+  $z-index: 0
 ) {
   position: $position;
   top: $top;
   right: $right;
   bottom: $bottom;
   left: $left;
+  z-index: $z-index;
 }
 
 @mixin fixedWidth($size) {
@@ -59,6 +61,34 @@
   justify-content: $justify-content;
 
   @if $gap != 0 {
+    gap: $gap;
+  }
+}
+
+@mixin gridable(
+  $grid-columns: none,
+  $grid-rows: none,
+  $gap: 0,
+  $align-items: flex-start,
+  $align-content: stretch,
+  $justify-items: stretch,
+  $justify-content: flex-start
+) {
+  display: grid;
+  justify-content: $justify-content;
+  align-content: $align-content;
+  justify-items: $justify-items;
+  align-items: $align-items;
+
+  @if $grid-columns != none {
+    grid-template-columns: $grid-columns;
+  }
+
+  @if $grid-rows != none {
+    grid-template-rows: $grid-rows;
+  }
+
+  @if $gap != none {
     gap: $gap;
   }
 }
