@@ -8,9 +8,15 @@ const Input = memo(function Input({
   value,
   setValue,
   onChange,
+  label,
+  isFloatLabel,
   placeholder,
 }) {
+  const InputGroupClassName = classNames(
+    !isFloatLabel ? 'input-group' : 'form-floating w-100',
+  )
   const InputClassName = classNames('form-control form-control-lg', className)
+  const LabelClassName = classNames({ 'input-group-text fs-5': !isFloatLabel })
 
   const handleChange = useCallback(
     (event) => {
@@ -36,10 +42,21 @@ const Input = memo(function Input({
   return type === 'textarea' ? (
     <textarea {...InputProps} />
   ) : (
-    <input
-      type={type}
-      {...InputProps}
-    />
+    <div className={InputGroupClassName}>
+      <input
+        id="input"
+        type={type}
+        {...InputProps}
+      />
+      {label && (
+        <label
+          className={LabelClassName}
+          htmlFor="input"
+        >
+          {label}
+        </label>
+      )}
+    </div>
   )
 })
 
