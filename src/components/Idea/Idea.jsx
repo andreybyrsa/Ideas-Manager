@@ -7,9 +7,9 @@ import getCurrentDate from '@Utils/getCurrentDate'
 
 import './Idea.scss'
 
-const Idea = memo(function Idea({ className, idea }) {
+const Idea = memo(function Idea({ className, idea, isLoading }) {
   const IdeaClassName = classNames(
-    'idea w-100 px-3 py-4 text-center',
+    'idea w-100 p-4 text-center border rounded-4',
     className,
   )
 
@@ -36,7 +36,11 @@ const Idea = memo(function Idea({ className, idea }) {
     return 'text-danger'
   }, [])
 
-  return (
+  return isLoading ? (
+    <div className="placeholder-glow w-100">
+      <span className="placeholder col-12 bg-secondary p-5 rounded-4" />
+    </div>
+  ) : (
     <div className={IdeaClassName}>
       <Typography className="idea__name text-primary text-start">
         {idea.name}

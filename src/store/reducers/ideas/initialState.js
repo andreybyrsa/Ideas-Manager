@@ -1,5 +1,8 @@
 const initialState = {
-  ideas: [],
+  ideas: {
+    items: [],
+    status: 'loading',
+  },
 }
 
 export default initialState

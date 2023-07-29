@@ -1,6 +1,4 @@
 .idea {
-  @include border(solid, $lighted-color, 0, 0 0 1px);
-
   @include gridable(2fr 1fr 1fr 100px 100px, $gap: 16px, $align-items: center);
 
   &__name {

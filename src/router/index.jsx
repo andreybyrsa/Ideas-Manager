@@ -4,11 +4,9 @@ import IndexPage from '@Pages/IndexPage'
 import ProfilePage from '@Pages/ProfilePage'
 import AuthPage from '@Pages/AuthPage'
 import ErrorPage from '@Pages/ErrorPage'
+import SettingPage from '@Pages/SettingPage'
 
 import AuthMiddleware from '@Middlewares/AuthMiddleware'
-
-import ideasService from '@Services/IdeasService'
-import SettingPage from '@Pages/SettingPage'
 
 const router = createBrowserRouter([
   {
@@ -18,7 +16,6 @@ const router = createBrowserRouter([
         path: '/ideas',
         element: <IndexPage />,
         errorElement: <ErrorPage />,
-        loader: ideasService.getIdeas,
       },
       {
         path: '/profile',

@@ -16,7 +16,7 @@
   }
 
   &__ideas {
-    @include flexible(flex-start, center, column);
+    @include flexible(flex-start, center, column, $gap: 16px);
 
     &-wrapper {
       @include flexible(flex-start, stretch, column, $gap: 20px);

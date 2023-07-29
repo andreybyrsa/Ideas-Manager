@@ -1,42 +1,16 @@
 import axios from 'axios'
 
+import getMockIdeas from '@Utils/getMockIdeas'
+
 const BASE_URL = process.env.REACT_APP_API_URL
 
-const defaultIdeas = [
-  {
-    id: 0,
-    name: 'Беспроводные зарядки на партах в каждом кабинете и этаже',
-    time_create: Date.now(),
-    time_update: Date.now(),
-    status: 'На согласовании',
-    rating: '4.0',
-    risk: '0.1',
-  },
-  {
-    id: 1,
-    name: 'Кондиционеры в кабинетах',
-    time_create: Date.now(),
-    time_update: Date.now(),
-    status: 'На согласовании',
-    rating: '3.5',
-    risk: '0.8',
-  },
-  {
-    id: 2,
-    name: 'Свежая булочная на 5ом этаже ВШЦТ',
-    time_create: Date.now(),
-    time_update: Date.now(),
-    status: 'Утверждено',
-    rating: '4.5',
-    risk: '0.2',
-  },
-]
+const mockIdeas = getMockIdeas()
 
 const getIdeas = async () => {
   const data = await axios
     .get(`${BASE_URL}idea_manager/`)
     .then((response) => response.data)
-    .catch(() => defaultIdeas)
+    .catch(() => mockIdeas)
   return data
 }
 

@@ -1,10 +1,7 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import { useCallback, useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { useLoaderData } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 
 import LeftSideBar from '@Components/LeftSideBar'
-import FilterModal from '@Components/Modal/FilterModal'
 import Button from '@Components/Button'
 import Idea from '@Components/Idea'
 import Input from '@Components/Input'
@@ -12,38 +9,32 @@ import Typography from '@Components/Typography'
 
 import PageLayout from '@Layouts/PageLayout'
 
-import { setIdeas } from '@Store/reducers/ideas/IdeasReducer'
+import { fetchIdeas } from '@Store/reducers/ideas/IdeasReducer'
+
+import getMockIdeas from '@Utils/getMockIdeas'
 
 import './IndexPage.scss'
 
+const mockIdeas = getMockIdeas()
+
 function IndexPage() {
-  const ideas = useLoaderData()
   const dispatch = useDispatch()
 
-  const [currentIdeas, setCurrentIdeas] = useState(ideas)
+  const { items: ideas, status } = useSelector(
+    (state) => state.IdeasReducer.ideas,
+  )
+  const isIdeasLoading = status === 'loading'
+
+  const [currentIdeas, setCurrentIdeas] = useState([])
   const [searchValue, setSearchValue] = useState('')
-  const [filter, setFilter] = useState('')
-  const [isOpenModal, setIsOpenModal] = useState(false)
 
   useEffect(() => {
-    dispatch(setIdeas(ideas))
-  }, [dispatch, ideas])
+    dispatch(fetchIdeas())
+  }, [dispatch])
 
   useEffect(() => {
-    let copiedIdeas = [...ideas]
-    if (filter === 'status') {
-      copiedIdeas = copiedIdeas.filter((idea) => idea.status === 'Утверждено')
-    }
-    if (filter === 'rating' || filter === 'risk') {
-      copiedIdeas.sort((a, b) => {
-        if (filter === 'rating') {
-          return b.rating - a.rating
-        }
-        return a.risk - b.risk
-      })
-    }
-    setCurrentIdeas(copiedIdeas)
-  }, [filter, ideas])
+    setCurrentIdeas(ideas)
+  }, [ideas])
 
   const handleSearch = useCallback(
     (event) => {
@@ -60,10 +51,6 @@ function IndexPage() {
     },
     [ideas, setCurrentIdeas],
   )
-
-  const handelOpenModal = useCallback(() => {
-    setIsOpenModal(true)
-  }, [])
 
   return (
     <PageLayout
@@ -90,17 +77,10 @@ function IndexPage() {
         <Button
           className="btn-light"
           iconName="bi bi-funnel"
-          onClick={handelOpenModal}
         >
           Фильтры
         </Button>
       </div>
-
-      <FilterModal
-        isOpen={isOpenModal}
-        setIsOpen={setIsOpenModal}
-        setFilter={setFilter}
-      />
 
       <div className="index-page__ideas-wrapper w-100">
         <div className="index-page__ideas-bar px-3 w-100 text-center">
@@ -115,10 +95,11 @@ function IndexPage() {
         </div>
 
         <div className="index-page__ideas w-100">
-          {currentIdeas.map((currentIdea) => (
+          {(isIdeasLoading ? mockIdeas : currentIdeas).map((idea) => (
             <Idea
-              key={currentIdea.id}
-              idea={currentIdea}
+              key={idea.id}
+              idea={idea}
+              isLoading={isIdeasLoading}
             />
           ))}
         </div>
