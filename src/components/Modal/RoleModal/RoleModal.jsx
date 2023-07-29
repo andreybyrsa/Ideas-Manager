@@ -1,49 +1,53 @@
+import { useCallback } from 'react'
 import classNames from 'classnames'
-import useAuth from '@Hooks/useAuth'
 import { useDispatch } from 'react-redux'
 
-import { setRole } from '@Store/reducers/user/UserReducer'
-import './RoleModal.scss'
 import Button from '@Components/Button'
 import Typography from '@Components/Typography'
 
+import { setRole } from '@Store/reducers/user/UserReducer'
+
+import useAuth from '@Hooks/useAuth'
+
 import ModalLayout from '../ModalLayout'
 
-function RoleModal({ className, isOpen, setIsOpen }) {
+import './RoleModal.scss'
+
+function RoleModal({ className, isOpen, setIsOpen, isLayoutClose }) {
   const [currentUser] = useAuth()
   const dispatch = useDispatch()
 
   const FilterModalClassName = classNames(
-    'filter-modal p-3 bg-white rounded',
-    { 'filter-modal--opened': isOpen },
+    'role-modal p-3 bg-white rounded',
+    { 'role-modal--opened': isOpen },
     className,
   )
 
-  const setCurrentRole = (role) => {
-    dispatch(setRole(role))
-  }
+  const setCurrentRole = useCallback(
+    (role) => {
+      dispatch(setRole(role))
+    },
+    [dispatch],
+  )
 
-  const Translate = (elem) => {
-    let role = elem
+  const Translate = (role) => {
     if (role === 'initializer') {
-      role = 'Инициатор'
+      return 'Инициатор'
     }
     if (role === 'projectOffice') {
-      role = 'Проектный офис'
+      return 'Проектный офис'
     }
     if (role === 'expert') {
-      role = 'Эксперт'
+      return 'Эксперт'
     }
-    if (role === 'admin') {
-      role = 'Админ'
-    }
-    return role
+    return 'Админ'
   }
 
   return (
     <ModalLayout
       isOpen={isOpen}
       setIsOpen={setIsOpen}
+      isLayoutClose={isLayoutClose}
     >
       <div className={FilterModalClassName}>
         <Typography className="fs-3">Доступные роли</Typography>

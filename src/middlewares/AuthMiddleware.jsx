@@ -1,42 +1,54 @@
 import { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Outlet, Navigate } from 'react-router-dom'
+
+import RoleModal from '@Components/Modal/RoleModal'
 
 import useAuth from '@Hooks/useAuth'
 
 import { setGlobalUser, setRole } from '@Store/reducers/user/UserReducer'
 import { removeMessages } from '@Store/reducers/messages/MessagesReducer'
-import RoleModal from '@Components/Modal/RoleModal'
 
 function AuthMiddleware() {
   const dispatch = useDispatch()
 
   const [currentUser, localStorageUser] = useAuth()
-  const [isOpenModalRole, setIsOpenModalRole] = useState(true)
+  const [isOpenRoleModal, setIsOpenRoleModal] = useState(true)
+
+  const authError = useSelector((state) => state.MessagesReducer.error)
 
   useEffect(() => {
     if (!currentUser && localStorageUser) {
       dispatch(setGlobalUser(localStorageUser))
     }
 
-    if (currentUser && currentUser.roles?.length === 1) {
-      dispatch(setRole(currentUser.roles[0]))
-      // console.log(currentUser.roles)
+    if (currentUser?.roles?.length === 1) {
+      const currentRole = currentUser.roles[0]
+      dispatch(setRole(currentRole))
     }
 
-    dispatch(removeMessages())
+    if (currentUser?.role) {
+      localStorage.setItem('user', JSON.stringify(currentUser))
+    }
   }, [currentUser, localStorageUser, dispatch])
+
+  useEffect(() => {
+    if (authError) {
+      dispatch(removeMessages())
+    }
+  }, [authError, dispatch])
 
   if (!currentUser && !localStorageUser) {
     return <Navigate to="/auth" />
   }
 
-  if (currentUser && currentUser.roles?.length > 1) {
+  if (currentUser?.roles?.length > 1) {
     return (
       <>
         <RoleModal
-          isOpen={isOpenModalRole}
-          setIsOpen={setIsOpenModalRole}
+          isOpen={isOpenRoleModal}
+          setIsOpen={setIsOpenRoleModal}
+          isLayoutClose={false}
         />
         <Outlet />
       </>

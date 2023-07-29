@@ -14,8 +14,6 @@ function* authWorker() {
 
   if (currentUser.token) {
     yield put(setGlobalUser(currentUser))
-
-    yield localStorage.setItem('user', JSON.stringify(currentUser))
   }
   if (error) {
     yield put(setError(error))

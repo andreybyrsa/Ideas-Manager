@@ -1,3 +1,3 @@
-import RoleModal from "./RoleModal";
+import RoleModal from './RoleModal'
 
 export default RoleModal

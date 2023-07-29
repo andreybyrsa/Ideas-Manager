@@ -4,7 +4,13 @@ import classNames from 'classnames'
 
 import './ModalLayout.scss'
 
-function ModalLayout({ className, isOpen, setIsOpen, children }) {
+function ModalLayout({
+  className,
+  isOpen,
+  setIsOpen,
+  isLayoutClose = true,
+  children,
+}) {
   const ModalLayoutClassName = classNames(
     'modal-layout',
     { 'modal-layout--opened': isOpen },
@@ -13,11 +19,11 @@ function ModalLayout({ className, isOpen, setIsOpen, children }) {
 
   const handleCloseModal = useCallback(
     (event) => {
-      if (event.target.classList.contains('modal-layout')) {
+      if (isLayoutClose && event.target.classList.contains('modal-layout')) {
         setIsOpen(false)
       }
     },
-    [setIsOpen],
+    [isLayoutClose, setIsOpen],
   )
 
   return createPortal(
