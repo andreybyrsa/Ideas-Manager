@@ -1,4 +1,4 @@
-import { memo, useCallback } from 'react'
+import { memo, useCallback, useMemo } from 'react'
 import { useDispatch } from 'react-redux'
 import classNames from 'classnames'
 
@@ -14,6 +14,13 @@ import { removeUser } from '@Store/reducers/user/UserReducer'
 
 import './LeftSideBar.scss'
 
+const navTabs = [
+  { id: 0, text: 'Список идей', to: '/ideas', iconName: 'bi bi-list' },
+  { id: 1, text: 'Добавить идею', to: '/add-idea', iconName: 'bi bi-plus-lg' },
+  { id: 2, text: 'Найстройки', to: '/settings', iconName: 'bi bi-gear' },
+  { id: 3, text: 'Отчеты', to: '/notes', iconName: 'bi bi-file-earmark' },
+]
+
 const LeftSideBar = memo(function LeftSideBar({ className }) {
   const [currentUser] = useAuth()
   const dispatch = useDispatch()
@@ -21,6 +28,23 @@ const LeftSideBar = memo(function LeftSideBar({ className }) {
   const LeftSidebarClassName = classNames(
     'left-side-bar w-100 h-100 p-3 bg-white',
     className,
+  )
+
+  const currentTabs = useMemo(
+    () =>
+      navTabs.filter((tab) => {
+        if (currentUser?.role === 'admin') {
+          return tab
+        }
+        if (currentUser?.role !== 'initializer') {
+          return tab.text !== 'Добавить идею'
+        }
+        if (currentUser?.role !== 'expert') {
+          return tab.text !== 'Отчеты'
+        }
+        return tab
+      }),
+    [currentUser?.role],
   )
 
   const handleLogout = useCallback(() => {
@@ -41,41 +65,15 @@ const LeftSideBar = memo(function LeftSideBar({ className }) {
         </div>
 
         <div className="nav nav-pills w-100 flex-column gap-3">
-          <NavTab
-            to="/ideas"
-            iconName="bi bi-list"
-          >
-            Список идей
-          </NavTab>
-
-          {currentUser?.role === 'initializer' && (
+          {currentTabs.map((tab) => (
             <NavTab
-              to="/add-idea"
-              iconName="bi bi-plus-lg"
+              key={tab.id}
+              iconName={tab.iconName}
+              to={tab.to}
             >
-              Добавить идею
+              {tab.text}
             </NavTab>
-          )}
-
-          {(currentUser?.role === 'admin' ||
-            currentUser?.role === 'projectOffice') && (
-            <NavTab
-              to="/setting"
-              iconName="bi bi-gear"
-            >
-              Найстройки
-            </NavTab>
-          )}
-
-          {(currentUser?.role === 'admin' ||
-            currentUser?.role === 'expert') && (
-            <NavTab
-              to="/notes"
-              iconName="bi bi-file-earmark"
-            >
-              Отчеты
-            </NavTab>
-          )}
+          ))}
 
           <Button
             className="btn-light"
