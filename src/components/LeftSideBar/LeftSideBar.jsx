@@ -40,7 +40,7 @@ const LeftSideBar = memo(function LeftSideBar({ className }) {
           <Typography className="fs-2 text-primary">HITS Ideas</Typography>
         </div>
 
-        <div className="nav nav-pills w-100 flex-column">
+        <div className="nav nav-pills w-100 flex-column gap-3">
           <NavTab
             to="/ideas"
             iconName="bi bi-list"
@@ -60,7 +60,7 @@ const LeftSideBar = memo(function LeftSideBar({ className }) {
           {(currentUser?.role === 'admin' ||
             currentUser?.role === 'projectOffice') && (
             <NavTab
-              to="/admin"
+              to="/setting"
               iconName="bi bi-gear"
             >
               Найстройки

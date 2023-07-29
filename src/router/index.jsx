@@ -8,6 +8,7 @@ import ErrorPage from '@Pages/ErrorPage'
 import AuthMiddleware from '@Middlewares/AuthMiddleware'
 
 import ideasService from '@Services/IdeasService'
+import SettingPage from '@Pages/SettingPage'
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,11 @@ const router = createBrowserRouter([
       {
         path: '/profile',
         element: <ProfilePage />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: '/setting',
+        element: <SettingPage />,
         errorElement: <ErrorPage />,
       },
     ],
