@@ -17,7 +17,7 @@ import './LeftSideBar.scss'
 const navTabs = [
   { id: 0, text: 'Список идей', to: '/ideas', iconName: 'bi bi-list' },
   { id: 1, text: 'Добавить идею', to: '/add-idea', iconName: 'bi bi-plus-lg' },
-  { id: 2, text: 'Найстройки', to: '/settings', iconName: 'bi bi-gear' },
+  { id: 2, text: 'Настройки', to: '/settings', iconName: 'bi bi-gear' },
   { id: 3, text: 'Отчеты', to: '/notes', iconName: 'bi bi-file-earmark' },
 ]
 

@@ -5,6 +5,7 @@ import Button from '@Components/Button'
 import Input from '@Components/Input'
 
 import { useState } from 'react'
+import SelectRole from '@Components/SelectRole'
 
 function SettingPage() {
   const [searchValue, setSearchValue] = useState('')
@@ -32,6 +33,7 @@ function SettingPage() {
           />
         </div>
         <Button className="btn-primary w-100">Отправить</Button>
+        <SelectRole/>
       </div>
     </PageLayout>
   )
