@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { memo, useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import classNames from 'classnames'
 
@@ -14,7 +14,7 @@ import { removeUser } from '@Store/reducers/user/UserReducer'
 
 import './LeftSideBar.scss'
 
-function LeftSideBar({ className }) {
+const LeftSideBar = memo(function LeftSideBar({ className }) {
   const [currentUser] = useAuth()
   const dispatch = useDispatch()
 
@@ -93,6 +93,6 @@ function LeftSideBar({ className }) {
       </Typography>
     </div>
   )
-}
+})
 
 export default LeftSideBar

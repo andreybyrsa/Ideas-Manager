@@ -2,10 +2,11 @@ import classNames from 'classnames'
 import { NavLink } from 'react-router-dom'
 
 import Typography from '@Components/Typography'
+import Icon from '@Components/Icon'
 
 import './NavTab.scss'
 
-function NavTab({ className, iconName, to, onClick, children }) {
+function NavTab({ className, iconName, to, children }) {
   const NavTabClassName = classNames('nav-link fs-4 d-flex', className)
 
   return (
@@ -14,9 +15,8 @@ function NavTab({ className, iconName, to, onClick, children }) {
         isActive ? `${NavTabClassName} active` : `${NavTabClassName} text-dark`
       }
       to={to}
-      onClick={onClick}
     >
-      {iconName && <i className={iconName} />}
+      {iconName && <Icon className={iconName} />}
       <Typography>{children}</Typography>
     </NavLink>
   )

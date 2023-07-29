@@ -1,5 +1,7 @@
 import classNames from 'classnames'
 
+import Icon from '@Components/Icon'
+
 import './Button.scss'
 
 function Button({ className, onClick, iconName, children }) {
@@ -11,7 +13,7 @@ function Button({ className, onClick, iconName, children }) {
       className={ButtonClassName}
       onClick={onClick}
     >
-      {iconName && <i className={iconName} />}
+      {iconName && <Icon className={iconName} />}
       {children}
     </button>
   )
