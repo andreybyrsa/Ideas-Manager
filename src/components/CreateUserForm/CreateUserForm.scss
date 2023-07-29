@@ -1,9 +1,0 @@
-.create-user-form {
-  width: 400px;
-
-  @include flexible(center, space-between, column, $gap: 16px);
-
-  &__inputs {
-    @include flexible(center, space-between, column, $gap: 16px);
-  }
-}

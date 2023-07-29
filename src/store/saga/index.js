@@ -1,42 +1,29 @@
 import { select, call, put, takeLatest } from 'redux-saga/effects'
 
-import {
-  setLoginUser,
-  setRegisterUser,
-  setGlobalUser,
-} from '@Store/reducers/user/UserReducer'
-import { setSuccess, setError } from '@Store/reducers/messages/MessagesReducer'
+import { setGlobalUser, setLoginUser } from '@Store/reducers/user/UserReducer'
+import { setError } from '@Store/reducers/messages/MessagesReducer'
 
 import AuthService from '@Services/AuthService'
 
-function* authWorker(apiService) {
-  const currentUser = yield select((state) =>
-    apiService.name === 'authLogin'
-      ? state.UserReducer.loginUser
-      : state.UserReducer.registerUser,
-  )
+function* authWorker() {
+  const loginUser = yield select((state) => state.UserReducer.loginUser)
 
-  const response = yield call(apiService, currentUser)
+  const { user, roles, error } = yield call(AuthService.authLogin, loginUser)
 
-  const { user, roles, success, error } = response
-  const responseUser = {...user, roles}
+  const currentUser = { ...user, roles }
 
-  if (user) {
-    yield put(setGlobalUser(responseUser))
+  if (currentUser.token) {
+    yield put(setGlobalUser(currentUser))
 
-    yield localStorage.setItem('user', JSON.stringify(responseUser))
-  } else if (success) {
-    yield put(setSuccess(success))
-  } else if (error) {
+    yield localStorage.setItem('user', JSON.stringify(currentUser))
+  }
+  if (error) {
     yield put(setError(error))
-  } else {
-    yield put(setError('Ошибка авторизации'))
   }
 }
 
 function* authWatcher() {
-  yield takeLatest(setLoginUser, () => authWorker(AuthService.authLogin))
-  yield takeLatest(setRegisterUser, () => authWorker(AuthService.authRegister))
+  yield takeLatest(setLoginUser, authWorker)
 }
 
 function* rootSaga() {

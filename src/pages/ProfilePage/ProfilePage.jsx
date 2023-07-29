@@ -1,7 +1,6 @@
 import { useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 
-import CreateUserForm from '@Components/CreateUserForm'
 import Button from '@Components/Button'
 import LeftSideBar from '@Components/LeftSideBar'
 
@@ -29,7 +28,6 @@ function ProfilePage() {
       contentClassName="profile-page__content"
       leftSidebar={<LeftSideBar />}
     >
-      {currentUser?.role === 'admin' && <CreateUserForm isLogin={false} />}
       <pre>{JSON.stringify(currentUser, null, 4)}</pre>
       <Button
         className="btn-primary"

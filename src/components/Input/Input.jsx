@@ -4,6 +4,7 @@ import classNames from 'classnames'
 
 const Input = memo(function Input({
   className,
+  id,
   type = 'text',
   value,
   setValue,
@@ -39,19 +40,21 @@ const Input = memo(function Input({
     [InputClassName, handleChange, placeholder, value],
   )
 
-  return type === 'textarea' ? (
-    <textarea {...InputProps} />
-  ) : (
+  if (type === 'textarea') {
+    return <textarea {...InputProps} />
+  }
+
+  return (
     <div className={InputGroupClassName}>
       <input
-        id="input"
+        id={id}
         type={type}
         {...InputProps}
       />
       {label && (
         <label
           className={LabelClassName}
-          htmlFor="input"
+          htmlFor={id}
         >
           {label}
         </label>

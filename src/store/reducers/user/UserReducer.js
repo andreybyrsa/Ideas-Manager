@@ -10,13 +10,10 @@ const UserSlice = createSlice({
     },
     setRole: (state, action) => {
       delete state.globalUser.roles
-      state.globalUser = {...state.globalUser, role: action.payload}
+      state.globalUser = { ...state.globalUser, role: action.payload }
     },
     setLoginUser: (state, action) => {
       state.loginUser = action.payload
-    },
-    setRegisterUser: (state, action) => {
-      state.registerUser = action.payload
     },
 
     removeUser: (state) => {
@@ -25,6 +22,6 @@ const UserSlice = createSlice({
   },
 })
 
-export const { setGlobalUser, setLoginUser, setRegisterUser, removeUser, setRole } =
+export const { setGlobalUser, setLoginUser, setRole, removeUser } =
   UserSlice.actions
 export default UserSlice.reducer
