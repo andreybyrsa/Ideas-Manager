@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import LeftSideBar from '@Components/LeftSideBar'
+import FilterModal from '@Components/Modal/FilterModal'
 import Button from '@Components/Button'
 import Idea from '@Components/Idea'
 import NavTab from '@Components/NavTab'
@@ -31,6 +32,7 @@ function IndexPage() {
 
   const [currentIdeas, setCurrentIdeas] = useState([])
   const [searchValue, setSearchValue] = useState('')
+  const [isOpenModal, setIsOpenModal] = useState(false)
 
   useEffect(() => {
     if (contextUser) {
@@ -58,6 +60,10 @@ function IndexPage() {
     [ideas, setCurrentIdeas],
   )
 
+  const openFilterModal = useCallback(() => {
+    setIsOpenModal(true)
+  }, [])
+
   return (
     <PageLayout
       contentClassName="index-page__content"
@@ -84,9 +90,15 @@ function IndexPage() {
         <Button
           className="btn-light"
           iconName="bi bi-funnel"
+          onClick={openFilterModal}
         >
-          Фильтры
+          Сортировка
         </Button>
+
+        <FilterModal
+          isOpen={isOpenModal}
+          setIsOpen={setIsOpenModal}
+        />
       </div>
 
       <div className="index-page__ideas-wrapper w-100">
