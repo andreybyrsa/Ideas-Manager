@@ -1,3 +1,31 @@
-.setting-page__content {
+.setting-page {
   @include flexible(center, center);
+
+  &__card {
+    width: 100%;
+    max-width: 400px;
+    
+    @include flexible(flex-start, flex-start, column, $gap: 12px);
+
+    &-data {
+      @include flexible(flex-start, flex-start, column, $gap: 12px);
+    }
+
+    &-nav {
+      @include flexible(flex-start, flex-start, $gap: 4px);
+    }
+
+    &-button {
+      z-index: 1;
+    }
+
+    &-emails {
+      @include flexible(center, flex-start, $gap: 12px);
+    }
+  }
+}
+
+.icon {
+  color: $primary-color;
+  font-size: 25px;
 }
