@@ -1,49 +1,48 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
+import { useOutletContext } from 'react-router-dom'
 import { useCallback, useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { useLoaderData } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 
 import LeftSideBar from '@Components/LeftSideBar'
 import FilterModal from '@Components/Modal/FilterModal'
 import Button from '@Components/Button'
 import Idea from '@Components/Idea'
+import NavTab from '@Components/NavTab'
 import Input from '@Components/Input'
 import Typography from '@Components/Typography'
 
 import PageLayout from '@Layouts/PageLayout'
 
-import { setIdeas } from '@Store/reducers/ideas/IdeasReducer'
+import { fetchIdeas } from '@Store/reducers/ideas/IdeasReducer'
+
+import getMockIdeas from '@Utils/getMockIdeas'
 
 import './IndexPage.scss'
 
+const mockIdeas = getMockIdeas()
+
 function IndexPage() {
-  const ideas = useLoaderData()
   const dispatch = useDispatch()
 
-  const [currentIdeas, setCurrentIdeas] = useState(ideas)
+  const contextUser = useOutletContext()
+
+  const { items: ideas, status } = useSelector(
+    (state) => state.IdeasReducer.ideas,
+  )
+  const isIdeasLoading = status === 'loading'
+
+  const [currentIdeas, setCurrentIdeas] = useState([])
   const [searchValue, setSearchValue] = useState('')
-  const [filter, setFilter] = useState('')
   const [isOpenModal, setIsOpenModal] = useState(false)
 
   useEffect(() => {
-    dispatch(setIdeas(ideas))
-  }, [dispatch, ideas])
+    if (contextUser) {
+      dispatch(fetchIdeas(contextUser.token))
+    }
+  }, [dispatch, contextUser])
 
   useEffect(() => {
-    let copiedIdeas = [...ideas]
-    if (filter === 'status') {
-      copiedIdeas = copiedIdeas.filter((idea) => idea.status === 'Утверждено')
-    }
-    if (filter === 'rating' || filter === 'risk') {
-      copiedIdeas.sort((a, b) => {
-        if (filter === 'rating') {
-          return b.rating - a.rating
-        }
-        return a.risk - b.risk
-      })
-    }
-    setCurrentIdeas(copiedIdeas)
-  }, [filter, ideas])
+    setCurrentIdeas(ideas)
+  }, [ideas])
 
   const handleSearch = useCallback(
     (event) => {
@@ -61,7 +60,7 @@ function IndexPage() {
     [ideas, setCurrentIdeas],
   )
 
-  const handelOpenModal = useCallback(() => {
+  const openFilterModal = useCallback(() => {
     setIsOpenModal(true)
   }, [])
 
@@ -70,14 +69,15 @@ function IndexPage() {
       contentClassName="index-page__content"
       leftSidebar={<LeftSideBar />}
     >
-      <div className="index-page__header w-100">
+      <div className="index-page__header nav nav-pills w-100">
         <Typography className="fs-2 text-primary">Идеи</Typography>
-        <Button
-          className="btn-primary"
+        <NavTab
           iconName="bi bi-plus-lg"
+          to="/add-idea"
+          isActiveTab
         >
           Добавить идею
-        </Button>
+        </NavTab>
       </div>
 
       <div className="index-page__search p-3 w-100 bg-primary rounded">
@@ -90,17 +90,16 @@ function IndexPage() {
         <Button
           className="btn-light"
           iconName="bi bi-funnel"
-          onClick={handelOpenModal}
+          onClick={openFilterModal}
         >
-          Фильтры
+          Сортировка
         </Button>
-      </div>
 
-      <FilterModal
-        isOpen={isOpenModal}
-        setIsOpen={setIsOpenModal}
-        setFilter={setFilter}
-      />
+        <FilterModal
+          isOpen={isOpenModal}
+          setIsOpen={setIsOpenModal}
+        />
+      </div>
 
       <div className="index-page__ideas-wrapper w-100">
         <div className="index-page__ideas-bar px-3 w-100 text-center">
@@ -112,13 +111,16 @@ function IndexPage() {
           <Typography>Статус</Typography>
           <Typography>Рейтинг</Typography>
           <Typography>Риск</Typography>
+          <Typography>Действия</Typography>
         </div>
 
         <div className="index-page__ideas w-100">
-          {currentIdeas.map((currentIdea) => (
+          {(isIdeasLoading ? mockIdeas : currentIdeas).map((idea) => (
             <Idea
-              key={currentIdea.id}
-              idea={currentIdea}
+              key={idea.id}
+              idea={idea}
+              ideaUrl={idea.id}
+              isLoading={isIdeasLoading}
             />
           ))}
         </div>

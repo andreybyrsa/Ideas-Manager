@@ -74,7 +74,7 @@ function FilterModal({ className, isOpen, setIsOpen, setFilter }) {
     >
       <div className={FilterModalClassName}>
         <div className="filter-modal__header w-100">
-          <Typography className="fs-3">Фильтры</Typography>
+          <Typography className="fs-3">Сортировка</Typography>
           <Button
             className="btn-close"
             onClick={closeFilterModal}
@@ -104,7 +104,7 @@ function FilterModal({ className, isOpen, setIsOpen, setFilter }) {
           className="btn-primary w-100"
           onClick={handleResetFilter}
         >
-          Отменить фильтры
+          Отменить
         </Button>
       </div>
     </ModalLayout>

@@ -1,4 +1,4 @@
-import { select, call, put, takeLatest } from 'redux-saga/effects'
+import { select, call, put, takeLeading } from 'redux-saga/effects'
 
 import { setGlobalUser, setLoginUser } from '@Store/reducers/user/UserReducer'
 import { setError } from '@Store/reducers/messages/MessagesReducer'
@@ -21,11 +21,7 @@ function* authWorker() {
 }
 
 function* authWatcher() {
-  yield takeLatest(setLoginUser, authWorker)
+  yield takeLeading(setLoginUser, authWorker)
 }
 
-function* rootSaga() {
-  yield authWatcher()
-}
-
-export default rootSaga
+export default authWatcher

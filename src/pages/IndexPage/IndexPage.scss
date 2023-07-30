@@ -16,7 +16,7 @@
   }
 
   &__ideas {
-    @include flexible(flex-start, center, column);
+    @include flexible(flex-start, center, column, $gap: 16px);
 
     &-wrapper {
       @include flexible(flex-start, stretch, column, $gap: 20px);
@@ -26,7 +26,7 @@
       @include border(solid, $lighted-color, 0, 0 0 1px);
 
       @include gridable(
-        2fr 1fr 1fr 100px 100px,
+        2fr 1fr 1fr 100px 100px 100px,
         $gap: 16px,
         $align-items: center
       );

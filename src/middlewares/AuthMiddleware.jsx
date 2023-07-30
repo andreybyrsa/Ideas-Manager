@@ -15,7 +15,8 @@ function AuthMiddleware() {
   const [currentUser, localStorageUser] = useAuth()
   const [isOpenRoleModal, setIsOpenRoleModal] = useState(true)
 
-  const authError = useSelector((state) => state.MessagesReducer.error)
+  const errorMessage = useSelector((state) => state.MessagesReducer.error)
+  const successMessage = useSelector((state) => state.MessagesReducer.success)
 
   useEffect(() => {
     if (!currentUser && localStorageUser) {
@@ -33,10 +34,10 @@ function AuthMiddleware() {
   }, [currentUser, localStorageUser, dispatch])
 
   useEffect(() => {
-    if (authError) {
+    if (errorMessage || successMessage) {
       dispatch(removeMessages())
     }
-  }, [authError, dispatch])
+  }, [dispatch, successMessage, errorMessage])
 
   if (!currentUser && !localStorageUser) {
     return <Navigate to="/auth" />
@@ -55,7 +56,9 @@ function AuthMiddleware() {
     )
   }
 
-  return <Outlet />
+  if (currentUser?.role) {
+    return <Outlet context={currentUser} />
+  }
 }
 
 export default AuthMiddleware

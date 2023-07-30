@@ -9,15 +9,19 @@ import { setRole } from '@Store/reducers/user/UserReducer'
 
 import useAuth from '@Hooks/useAuth'
 
+import getRoles from '@Utils/getRoles'
+
 import ModalLayout from '../ModalLayout'
 
 import './RoleModal.scss'
+
+const userRoles = getRoles()
 
 function RoleModal({ className, isOpen, setIsOpen, isLayoutClose }) {
   const [currentUser] = useAuth()
   const dispatch = useDispatch()
 
-  const FilterModalClassName = classNames(
+  const RoleModalClassName = classNames(
     'role-modal p-3 bg-white rounded',
     { 'role-modal--opened': isOpen },
     className,
@@ -30,18 +34,8 @@ function RoleModal({ className, isOpen, setIsOpen, isLayoutClose }) {
     [dispatch],
   )
 
-  const Translate = (role) => {
-    if (role === 'initializer') {
-      return 'Инициатор'
-    }
-    if (role === 'projectOffice') {
-      return 'Проектный офис'
-    }
-    if (role === 'expert') {
-      return 'Эксперт'
-    }
-    return 'Админ'
-  }
+  const getTranslatedRole = (currentRole) =>
+    userRoles.find((role) => role.value === currentRole).text
 
   return (
     <ModalLayout
@@ -49,7 +43,7 @@ function RoleModal({ className, isOpen, setIsOpen, isLayoutClose }) {
       setIsOpen={setIsOpen}
       isLayoutClose={isLayoutClose}
     >
-      <div className={FilterModalClassName}>
+      <div className={RoleModalClassName}>
         <Typography className="fs-3">Доступные роли</Typography>
 
         {currentUser &&
@@ -59,7 +53,7 @@ function RoleModal({ className, isOpen, setIsOpen, isLayoutClose }) {
               className="w-100 justify-content-center btn-primary"
               onClick={() => setCurrentRole(elem)}
             >
-              {Translate(elem)}
+              {getTranslatedRole(elem)}
             </Button>
           ))}
       </div>

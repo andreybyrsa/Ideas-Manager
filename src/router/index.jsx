@@ -1,28 +1,33 @@
 import { createBrowserRouter } from 'react-router-dom'
 
 import IndexPage from '@Pages/IndexPage'
-import ProfilePage from '@Pages/ProfilePage'
+import CreateIdeaPage from '@Pages/CreateIdeaPage'
 import AuthPage from '@Pages/AuthPage'
 import ErrorPage from '@Pages/ErrorPage'
+import SettingPage from '@Pages/SettingPage'
 
 import AuthMiddleware from '@Middlewares/AuthMiddleware'
-
-import ideasService from '@Services/IdeasService'
-import SettingPage from '@Pages/SettingPage'
+import EditIdeaPage from '@Pages/EditIdeaPage'
 
 const router = createBrowserRouter([
   {
+    path: '/',
     element: <AuthMiddleware />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: '/ideas',
         element: <IndexPage />,
         errorElement: <ErrorPage />,
-        loader: ideasService.getIdeas,
       },
       {
-        path: '/profile',
-        element: <ProfilePage />,
+        path: '/add-idea',
+        element: <CreateIdeaPage />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: '/edit-idea/:ideaId',
+        element: <EditIdeaPage />,
         errorElement: <ErrorPage />,
       },
       {

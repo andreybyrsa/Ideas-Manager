@@ -36,7 +36,7 @@ const LeftSideBar = memo(function LeftSideBar({ className }) {
         if (currentUser?.role === 'admin') {
           return tab
         }
-        if (currentUser?.role !== 'initializer') {
+        if (currentUser?.role !== 'initiator') {
           return tab.text !== 'Добавить идею'
         }
         if (currentUser?.role !== 'expert') {

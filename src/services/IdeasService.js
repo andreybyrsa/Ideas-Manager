@@ -1,74 +1,57 @@
 import axios from 'axios'
 
+import getMockIdeas from '@Utils/getMockIdeas'
+
 const BASE_URL = process.env.REACT_APP_API_URL
 
-const defaultIdeas = [
-  {
-    id: 0,
-    name: 'Беспроводные зарядки на партах в каждом кабинете и этаже',
-    time_create: Date.now(),
-    time_update: Date.now(),
-    status: 'На согласовании',
-    rating: '4.0',
-    risk: '0.1',
-  },
-  {
-    id: 1,
-    name: 'Кондиционеры в кабинетах',
-    time_create: Date.now(),
-    time_update: Date.now(),
-    status: 'На согласовании',
-    rating: '3.5',
-    risk: '0.8',
-  },
-  {
-    id: 2,
-    name: 'Свежая булочная на 5ом этаже ВШЦТ',
-    time_create: Date.now(),
-    time_update: Date.now(),
-    status: 'Утверждено',
-    rating: '4.5',
-    risk: '0.2',
-  },
-]
+const mockIdeas = getMockIdeas()
 
-const getIdeas = async () => {
+const getUserIdeas = async (userToken) => {
   const data = await axios
-    .get(`${BASE_URL}idea_manager/`)
+    .get(`${BASE_URL}ideas_manager/get_user_ideas/${userToken}/`)
     .then((response) => response.data)
-    .catch(() => defaultIdeas)
+    .catch(() => mockIdeas)
+
   return data
 }
 
-const postIdea = (idea) =>
-  axios
-    .post(`${BASE_URL}idea_manager/`, idea)
+const postIdea = async (idea) => {
+  const data = await axios
+    .post(`${BASE_URL}ideas_manager/`, idea)
     .then((response) => response.data)
     .catch(() => {
       throw new Error('Не удалось опубликовать идею.')
     })
 
-const updateIdea = (ideaId, updatedId) =>
-  axios
-    .put(`${BASE_URL}idea_manager/${ideaId}/`, updatedId)
+  return data
+}
+
+const updateIdea = async ({ ideaId, idea }) => {
+  const data = await axios
+    .put(`${BASE_URL}ideas_manager/${ideaId}/`, idea)
     .then((response) => response.data)
     .catch(() => {
       throw new Error('Не удалось обновить идею.')
     })
 
-const deleteIdea = (ideaId) =>
-  axios
-    .delete(`${BASE_URL}idea_manager/${ideaId}/`)
+  return data
+}
+
+const deleteIdea = async (ideaId) => {
+  const data = await axios
+    .delete(`${BASE_URL}ideas_manager/${ideaId}/`)
     .then((response) => response.status === 204)
     .catch(() => {
       throw new Error('Не удалось удалить идею.')
     })
 
-const ideasService = {
-  getIdeas,
+  return data
+}
+const IdeasService = {
+  getUserIdeas,
   postIdea,
   updateIdea,
   deleteIdea,
 }
 
-export default ideasService
+export default IdeasService
