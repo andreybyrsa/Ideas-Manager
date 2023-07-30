@@ -3,8 +3,11 @@ import classNames from 'classnames'
 import './PageLayout.scss'
 
 function PageLayout({ className, contentClassName, children, leftSidebar }) {
-  const PageLayoutClassName = classNames('page-layout vh-100 vw-100', className)
-  const PageLayoutContentClassName = classNames('w-100 p-3', contentClassName)
+  const PageLayoutClassName = classNames('page-layout vw-100', className)
+  const PageLayoutContentClassName = classNames(
+    'p-3 w-100 overwlow-scroll',
+    contentClassName,
+  )
 
   return (
     <div className={PageLayoutClassName}>

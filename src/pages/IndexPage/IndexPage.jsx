@@ -1,9 +1,11 @@
+import { useOutletContext } from 'react-router-dom'
 import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import LeftSideBar from '@Components/LeftSideBar'
 import Button from '@Components/Button'
 import Idea from '@Components/Idea'
+import NavTab from '@Components/NavTab'
 import Input from '@Components/Input'
 import Typography from '@Components/Typography'
 
@@ -20,6 +22,8 @@ const mockIdeas = getMockIdeas()
 function IndexPage() {
   const dispatch = useDispatch()
 
+  const contextUser = useOutletContext()
+
   const { items: ideas, status } = useSelector(
     (state) => state.IdeasReducer.ideas,
   )
@@ -29,8 +33,10 @@ function IndexPage() {
   const [searchValue, setSearchValue] = useState('')
 
   useEffect(() => {
-    dispatch(fetchIdeas())
-  }, [dispatch])
+    if (contextUser) {
+      dispatch(fetchIdeas(contextUser.token))
+    }
+  }, [dispatch, contextUser])
 
   useEffect(() => {
     setCurrentIdeas(ideas)
@@ -57,14 +63,15 @@ function IndexPage() {
       contentClassName="index-page__content"
       leftSidebar={<LeftSideBar />}
     >
-      <div className="index-page__header w-100">
+      <div className="index-page__header nav nav-pills w-100">
         <Typography className="fs-2 text-primary">Идеи</Typography>
-        <Button
-          className="btn-primary"
+        <NavTab
           iconName="bi bi-plus-lg"
+          to="/add-idea"
+          isActiveTab
         >
           Добавить идею
-        </Button>
+        </NavTab>
       </div>
 
       <div className="index-page__search p-3 w-100 bg-primary rounded">
@@ -92,6 +99,7 @@ function IndexPage() {
           <Typography>Статус</Typography>
           <Typography>Рейтинг</Typography>
           <Typography>Риск</Typography>
+          <Typography>Действия</Typography>
         </div>
 
         <div className="index-page__ideas w-100">
@@ -99,6 +107,7 @@ function IndexPage() {
             <Idea
               key={idea.id}
               idea={idea}
+              ideaUrl={idea.id}
               isLoading={isIdeasLoading}
             />
           ))}

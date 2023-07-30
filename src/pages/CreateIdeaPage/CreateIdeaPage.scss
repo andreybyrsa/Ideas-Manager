@@ -1,0 +1,9 @@
+.create-idea-page {
+  &__content {
+    @include flexible(center, center, column, $gap: 12px);
+  }
+
+  &__inputs {
+    @include flexible(flex-start, center, column, $gap: 12px);
+  }
+}

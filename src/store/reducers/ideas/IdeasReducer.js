@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk, createAction } from '@reduxjs/toolkit'
 
 import ideasService from '@Services/IdeasService'
 
@@ -6,15 +6,29 @@ import getMockIdeas from '@Utils/getMockIdeas'
 
 import initialState from './initialState'
 
-const fetchIdeas = createAsyncThunk('ideas/fetch', async () => {
-  const ideas = await ideasService.getIdeas()
+const fetchIdeas = createAsyncThunk('ideas/fetch', async (userToken) => {
+  const ideas = await ideasService.getUserIdeas(userToken)
   return ideas
 })
+
+const postIdea = createAction('idea/post', (idea) => ({ payload: idea }))
+const updateIdea = createAction('idea/put', ({ ideaId, idea }) => ({
+  payload: { ideaId, idea },
+}))
+const deleteIdea = createAction('idea/delete', (ideaId) => ({
+  payload: ideaId,
+}))
 
 const ideasSlice = createSlice({
   name: 'ideas',
   initialState,
-  reducers: {},
+  reducers: {
+    removeIdea: (state, action) => {
+      state.ideas.items = state.ideas.items.filter(
+        (item) => item.id !== action.payload,
+      )
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchIdeas.pending, (state) => {
@@ -31,7 +45,7 @@ const ideasSlice = createSlice({
   },
 })
 
-export const { setIdeas } = ideasSlice.actions
-export { fetchIdeas }
+export const { removeIdea } = ideasSlice.actions
+export { fetchIdeas, postIdea, updateIdea, deleteIdea }
 
 export default ideasSlice.reducer

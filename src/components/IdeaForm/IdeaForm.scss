@@ -1,0 +1,3 @@
+.idea-form {
+  @include flexible(flex-start, center, column, $gap: 12px);
+}

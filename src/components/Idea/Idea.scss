@@ -1,5 +1,9 @@
 .idea {
-  @include gridable(2fr 1fr 1fr 100px 100px, $gap: 16px, $align-items: center);
+  @include gridable(
+    2fr 1fr 1fr 100px 100px 100px,
+    $gap: 16px,
+    $align-items: center
+  );
 
   &__name {
     text-overflow: ellipsis;

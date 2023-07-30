@@ -68,7 +68,7 @@ function AuthPage() {
   }
 
   return (
-    <PageLayout contentClassName="auth-page__content h-100">
+    <PageLayout contentClassName="auth-page__content vh-100">
       <div className="auth-page__form p-3 rounded shadow">
         <Typography className="fs-3 text-primary">Авторизация</Typography>
 

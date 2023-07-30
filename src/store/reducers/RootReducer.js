@@ -6,8 +6,8 @@ import IdeasReducer from './ideas'
 
 const RootReducer = combineReducers({
   UserReducer,
-  MessagesReducer,
   IdeasReducer,
+  MessagesReducer,
 })
 
 export default RootReducer
